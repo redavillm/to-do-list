@@ -3,35 +3,174 @@ import styles from "./App.module.css";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [visibleNewTaskWindow, setVisibleNewTaskWindow] = useState(false);
+  const [newTask, setNewTask] = useState("");
+  const [visibleEditTaskWindow, setVisibleEditTaskWindow] = useState(false);
+  const [changedTask, setChangedTask] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [refreshListFlag, setRefreshListFlag] = useState(false);
+
+  const refreshList = () => setRefreshListFlag(!refreshListFlag);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos/")
+    setIsLoading(true);
+    fetch("http://localhost:3005/tasks")
       .then((loadedData) => loadedData.json())
       .then((loadedTasks) => {
-        setTasks(loadedTasks.slice(0, 10));
-      });
-  });
+        setTasks(loadedTasks);
+      })
+      .finally(() => setIsLoading(false));
+  }, [refreshListFlag]);
+
+  const showModalNewTaskWindow = () => {
+    setVisibleNewTaskWindow(!visibleNewTaskWindow);
+  };
+
+  const showModalEditTaskWindow = () => {
+    setVisibleEditTaskWindow(!visibleEditTaskWindow);
+  };
+
+  const requestAddNewTask = () => {
+    setIsLoading(true);
+    fetch("http://localhost:3005/tasks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        text: newTask,
+      }),
+    })
+      .then((rawResponse) => rawResponse.json())
+      .then((response) => console.log(response))
+      .finally(() => setIsLoading(false));
+  };
+
+  const requestUpdateTask = (id) => {
+    setIsLoading(true);
+    fetch(`http://localhost:3005/tasks/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({
+        text: changedTask,
+      }),
+    })
+      .then((rawResponse) => rawResponse.json())
+      .then((response) => {
+        console.log(response);
+        refreshList();
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  // const requestRemoveTask = () => {
+  //   console.log("start", newTask);
+  //   fetch("http://localhost:3005/tasks", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json;charset=utf-8" },
+  //     body: JSON.stringify({
+  //       text: newTask,
+  //     }),
+  //   })
+  //     .then((rawResponse) => rawResponse.json())
+  //     .then((response) => console.log(response));
+  // };
 
   return (
     <div className={styles.app}>
       <h1>Tasks list</h1>
       <div className={styles.wrapper}>
         <div className={styles.menu}>
-          {/* <button className={styles.menu_btn}>Sort by ABC</button> */}
-          {/* <button className={styles.menu_btn}>+ Add new task +</button> */}
+          <button className={styles.menu_btn} onClick={showModalNewTaskWindow}>
+            + Add new task +
+          </button>
+          <button className={styles.menu_btn}>Sort by ABC</button>
           {/* <form>
-            <input className={styles.menu_search}></input>
+            <input className={styles.search_input}></input>
             <button className={styles.menu_btn}>Search</button>
           </form> */}
         </div>
         <div className={styles.list}>
-          {tasks.map(({ id, title }) => (
-            <div id={id} className={styles.task}>
-              {id + ". "}
-              {title}
-              {/* <button className={styles.del_btn}>X</button> */}
-            </div>
-          ))}
+          {isLoading ? (
+            <div className={styles.loader}></div>
+          ) : (
+            tasks.map(({ id, text }) => (
+              <div id={id} className={styles.task}>
+                {text}
+                <div>
+                  <button
+                    className={styles.del_btn}
+                    onClick={showModalEditTaskWindow}
+                  >
+                    Edit
+                  </button>
+                  <button className={styles.del_btn}>X</button>
+
+                  <div
+                    className={
+                      visibleEditTaskWindow
+                        ? styles.modal_edit_task_window
+                        : styles.modal_none
+                    }
+                  >
+                    <div className={styles.modal_box}>
+                      <div className={styles.modal_btn_wrapper}>
+                        <button onClick={showModalEditTaskWindow}>X</button>
+                      </div>
+                      <div className={styles.modal_title}>Edit your task</div>
+                      <form onSubmit={() => requestUpdateTask(id)}>
+                        <input
+                          className={styles.modal_input}
+                          type="text"
+                          name="task"
+                          value={changedTask}
+                          onChange={({ target }) =>
+                            setChangedTask(target.value)
+                          }
+                        ></input>
+                        <br></br>
+                        <button
+                          className={styles.modal_btn}
+                          type="submit"
+                          disabled={changedTask === ""}
+                        >
+                          Edit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+      <div
+        className={
+          visibleNewTaskWindow
+            ? styles.modal_new_task_window
+            : styles.modal_none
+        }
+      >
+        <div className={styles.modal_box}>
+          <div className={styles.modal_btn_wrapper}>
+            <button onClick={showModalNewTaskWindow}>X</button>
+          </div>
+          <div className={styles.modal_title}>Describe your task</div>
+          <form onSubmit={requestAddNewTask}>
+            <input
+              className={styles.modal_input}
+              type="text"
+              name="task"
+              value={newTask}
+              onChange={({ target }) => setNewTask(target.value)}
+            ></input>
+            <button
+              className={styles.modal_btn}
+              type="submit"
+              disabled={newTask === ""}
+            >
+              Add task
+            </button>
+          </form>
         </div>
       </div>
     </div>
