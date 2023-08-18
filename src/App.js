@@ -5,9 +5,11 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch("https://mocki.io/v1/8f3e2fab-7aca-4163-b5be-ea48fedcc5f5")
+    fetch("https://jsonplaceholder.typicode.com/todos/")
       .then((loadedData) => loadedData.json())
-      .then((loadedTasks) => setTasks(loadedTasks));
+      .then((loadedTasks) => {
+        setTasks(loadedTasks.slice(0, 10));
+      });
   });
 
   return (
@@ -15,19 +17,19 @@ function App() {
       <h1>Tasks list</h1>
       <div className={styles.wrapper}>
         <div className={styles.menu}>
-          <button className={styles.menu_btn}>Sort by ABC</button>
+          {/* <button className={styles.menu_btn}>Sort by ABC</button> */}
           {/* <button className={styles.menu_btn}>+ Add new task +</button> */}
-          <form>
+          {/* <form>
             <input className={styles.menu_search}></input>
             <button className={styles.menu_btn}>Search</button>
-          </form>
+          </form> */}
         </div>
         <div className={styles.list}>
-          {tasks.map(({ id, text }) => (
+          {tasks.map(({ id, title }) => (
             <div id={id} className={styles.task}>
               {id + ". "}
-              {text}
-              <button className={styles.del_btn}>X</button>
+              {title}
+              {/* <button className={styles.del_btn}>X</button> */}
             </div>
           ))}
         </div>
