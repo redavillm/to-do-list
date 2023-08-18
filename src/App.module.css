@@ -1,0 +1,69 @@
+.app {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.wrapper {
+  border: 3px rgb(255, 255, 255) solid;
+  border-radius: 3px;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  background-color: #3a3e46;
+  width: 900px;
+  padding: 20px 20px;
+}
+
+.menu_btn {
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 18px;
+}
+
+.menu_btn:hover {
+  background-color: rgb(167, 167, 167);
+}
+
+.menu_search {
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.list {
+  text-align: left;
+}
+
+.task {
+  padding: 30px 30px;
+  display: flex;
+  font-size: 16px;
+  justify-content: space-between;
+}
+
+.task:hover {
+  background-color: #33373d;
+}
+
+.del_btn {
+  padding: 5px 10px;
+  border-radius: 15%;
+  border: none;
+}
+
+.del_btn:hover {
+  background-color: rgb(167, 167, 167);
+}
