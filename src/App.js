@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./App.module.css";
+import { requestAddNewTask, requestUpdateTask } from "./scripts";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -30,50 +31,6 @@ function App() {
     setVisibleEditTaskWindow(!visibleEditTaskWindow);
   };
 
-  const requestAddNewTask = () => {
-    setIsLoading(true);
-    fetch("http://localhost:3005/tasks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({
-        text: newTask,
-      }),
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => console.log(response))
-      .finally(() => setIsLoading(false));
-  };
-
-  const requestUpdateTask = (id) => {
-    setIsLoading(true);
-    fetch(`http://localhost:3005/tasks/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({
-        text: changedTask,
-      }),
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then((response) => {
-        console.log(response);
-        refreshList();
-      })
-      .finally(() => setIsLoading(false));
-  };
-
-  // const requestRemoveTask = () => {
-  //   console.log("start", newTask);
-  //   fetch("http://localhost:3005/tasks", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json;charset=utf-8" },
-  //     body: JSON.stringify({
-  //       text: newTask,
-  //     }),
-  //   })
-  //     .then((rawResponse) => rawResponse.json())
-  //     .then((response) => console.log(response));
-  // };
-
   return (
     <div className={styles.app}>
       <h1>Tasks list</h1>
@@ -103,7 +60,6 @@ function App() {
                     Edit
                   </button>
                   <button className={styles.del_btn}>X</button>
-
                   <div
                     className={
                       visibleEditTaskWindow
@@ -116,7 +72,16 @@ function App() {
                         <button onClick={showModalEditTaskWindow}>X</button>
                       </div>
                       <div className={styles.modal_title}>Edit your task</div>
-                      <form onSubmit={() => requestUpdateTask(id)}>
+                      <form
+                        onSubmit={() =>
+                          requestUpdateTask(
+                            id,
+                            setIsLoading,
+                            changedTask,
+                            refreshList
+                          )
+                        }
+                      >
                         <input
                           className={styles.modal_input}
                           type="text"
@@ -131,6 +96,7 @@ function App() {
                           className={styles.modal_btn}
                           type="submit"
                           disabled={changedTask === ""}
+                          onClick={showModalEditTaskWindow}
                         >
                           Edit
                         </button>
@@ -155,7 +121,7 @@ function App() {
             <button onClick={showModalNewTaskWindow}>X</button>
           </div>
           <div className={styles.modal_title}>Describe your task</div>
-          <form onSubmit={requestAddNewTask}>
+          <form onSubmit={() => requestAddNewTask({ newTask, setIsLoading })}>
             <input
               className={styles.modal_input}
               type="text"
