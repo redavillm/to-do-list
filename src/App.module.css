@@ -48,27 +48,6 @@
   text-align: left;
 }
 
-.task {
-  padding: 30px 30px;
-  display: flex;
-  font-size: 16px;
-  justify-content: space-between;
-}
-
-.task:hover {
-  background-color: #33373d;
-}
-
-.del_btn {
-  padding: 5px 10px;
-  border-radius: 15%;
-  border: none;
-}
-
-.del_btn:hover {
-  background-color: rgb(167, 167, 167);
-}
-
 .loader {
   position: fixed;
   top: 50%;

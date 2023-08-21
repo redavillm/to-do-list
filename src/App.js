@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import { ModalWindows } from "./components/ModalWindow";
+import { EditModalWindow } from "./components/EditModalWindow";
 import { requestRemoveTask } from "./scripts";
+import { Task } from "./components/Task";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -46,18 +48,21 @@ function App() {
             <div className={styles.loader}></div>
           ) : (
             tasks.map(({ id, text }) => (
-              <div id={id} className={styles.task}>
-                {text}
-                <div>
-                  <button
-                    className={styles.del_btn}
-                    onClick={() => {
-                      requestRemoveTask({ id, setIsLoading, refreshList });
-                    }}
-                  >
-                    X
-                  </button>
-                </div>
+              <div>
+                <Task
+                  id={id}
+                  text={text}
+                  requestRemoveTask={requestRemoveTask}
+                  setIsLoading={setIsLoading}
+                  refreshList={refreshList}
+                />
+                <EditModalWindow
+                  showModalNewTaskWindow={showModalNewTaskWindow}
+                  newTask={newTask}
+                  setIsLoading={setIsLoading}
+                  setNewTask={setNewTask}
+                  visibleModalkWindow={visibleModalkWindow}
+                />
               </div>
             ))
           )}
