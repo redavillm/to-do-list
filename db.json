@@ -2,15 +2,11 @@
   "tasks": [
     {
       "id": 1,
-      "text": "Magna sit amet purus gravida quis blandit"
+      "text": "Tellus mauris a diam maecenas sed enim ut sem viverra aliquet"
     },
     {
       "id": 2,
       "text": "Ornare massa eget egestas purus viverra accumsan"
-    },
-    {
-      "id": 3,
-      "text": "Arcu odio ut sem nulla pharetra diam"
     },
     {
       "id": 4,
@@ -31,26 +27,6 @@
     {
       "id": 8,
       "text": "Felis eget nunc lobortis mattis aliquam faucibus purus in massa tempor"
-    },
-    {
-      "text": "sdfsdfsdfsdfsd",
-      "id": 9
-    },
-    {
-      "text": "etwertwetwertwetwe",
-      "id": 10
-    },
-    {
-      "text": "New test task",
-      "id": 11
-    },
-    {
-      "text": "Second task",
-      "id": 12
-    },
-    {
-      "text": "Editors",
-      "id": 13
     }
   ]
 }
