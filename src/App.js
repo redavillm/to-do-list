@@ -7,7 +7,15 @@ import { Task } from "./components/Task";
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [visibleModalkWindow, setVisibleModalkWindow] = useState(false);
+  const [editTask, setEditTask] = useState({
+    id: 0,
+    text: "",
+  });
+
+
+  
+  const [visibleModalWindow, setVisibleModalWindow] = useState(false);
+  const [visibleModalEditWindow, setVisibleModalEditWindow] = useState(false);
   const [newTask, setNewTask] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [refreshListFlag, setRefreshListFlag] = useState(false);
@@ -25,7 +33,11 @@ function App() {
   }, [refreshListFlag]);
 
   const showModalNewTaskWindow = () => {
-    setVisibleModalkWindow(!visibleModalkWindow);
+    setVisibleModalWindow(!visibleModalWindow);
+  };
+
+  const showModalEditTaskWindow = () => {
+    setVisibleModalEditWindow(!visibleModalEditWindow);
   };
 
   return (
@@ -36,7 +48,9 @@ function App() {
           <button className={styles.menu_btn} onClick={showModalNewTaskWindow}>
             + Add new task +
           </button>
-          <button className={styles.menu_btn}>Edit your task</button>
+          <button className={styles.menu_btn} onClick={showModalEditTaskWindow}>
+            Edit your task
+          </button>
           <button className={styles.menu_btn}>Sort by ABC</button>
           {/* <form>
             <input className={styles.search_input}></input>
@@ -47,21 +61,23 @@ function App() {
           {isLoading ? (
             <div className={styles.loader}></div>
           ) : (
-            tasks.map(({ id, text }) => (
+            tasks.map(({ id, text }, index) => (
               <div>
                 <Task
                   id={id}
                   text={text}
+                  index={index}
                   requestRemoveTask={requestRemoveTask}
                   setIsLoading={setIsLoading}
                   refreshList={refreshList}
                 />
                 <EditModalWindow
-                  showModalNewTaskWindow={showModalNewTaskWindow}
-                  newTask={newTask}
+                  refreshList={refreshList}
+                  showModalEditTaskWindow={showModalEditTaskWindow}
+                  editTask={editTask}
                   setIsLoading={setIsLoading}
-                  setNewTask={setNewTask}
-                  visibleModalkWindow={visibleModalkWindow}
+                  setEditTask={setEditTask}
+                  visibleModalEditWindow={visibleModalEditWindow}
                 />
               </div>
             ))
@@ -74,7 +90,7 @@ function App() {
         newTask={newTask}
         setIsLoading={setIsLoading}
         setNewTask={setNewTask}
-        visibleModalkWindow={visibleModalkWindow}
+        visibleModalkWindow={visibleModalWindow}
       />
     </div>
   );

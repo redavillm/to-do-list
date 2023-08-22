@@ -1,36 +1,57 @@
 import styles from "./EditModalWindow.module.css";
-import { requestAddNewTask } from "../scripts";
+import { requestUpdateTask } from "../scripts";
 
 export const EditModalWindow = ({
-  showModalNewTaskWindow,
-  newTask,
+  showModalEditTaskWindow,
+  editTask,
   setIsLoading,
-  setNewTask,
-  visibleModalkWindow,
+  setEditTask,
+  visibleModalEditWindow,
+  refreshList,
 }) => {
   return (
     <div
       className={
-        visibleModalkWindow ? styles.modal_new_task_window : styles.modal_none
+        visibleModalEditWindow
+          ? styles.modal_edit_task_window
+          : styles.modal_none
       }
     >
       <div className={styles.modal_box}>
         <div className={styles.modal_btn_wrapper}>
-          <button onClick={showModalNewTaskWindow}>X</button>
+          <button onClick={showModalEditTaskWindow}>X</button>
         </div>
-        <div className={styles.modal_title}>Describe your task</div>
-        <form onSubmit={() => requestAddNewTask({ newTask, setIsLoading })}>
+        <div className={styles.modal_title}>Edit your task</div>
+        <form
+          onSubmit={() =>
+            requestUpdateTask({ editTask, setIsLoading, refreshList })
+          }
+        >
           <input
             className={styles.modal_input}
-            type="text"
+            placeholder="Tasks number"
+            value={editTask.id}
+            onChange={({ target }) => {
+              setEditTask(...editTask, {
+                id: target.value,
+              });
+            }}
+          ></input>
+          <input
+            placeholder="New tasks text"
+            className={styles.modal_input}
             name="task"
-            value={newTask}
-            onChange={({ target }) => setNewTask(target.value)}
+            value={editTask.text}
+            onChange={({ target }) =>
+              setEditTask(...editTask, {
+                text: target.value,
+              })
+            }
           ></input>
           <button
             className={styles.modal_btn}
             type="submit"
-            disabled={newTask === ""}
+            disabled={editTask.text === "" || (editTask.id = 0)}
           >
             Add task
           </button>

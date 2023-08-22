@@ -12,18 +12,13 @@ export const requestAddNewTask = ({ newTask, setIsLoading }) => {
     .finally(() => setIsLoading(false));
 };
 
-export const requestUpdateTask = ({
-  id,
-  setIsLoading,
-  changedTask,
-  refreshList,
-}) => {
+export const requestUpdateTask = ({ editTask, setIsLoading, refreshList }) => {
   setIsLoading(true);
-  fetch(`http://localhost:3005/tasks/${id}`, {
+  fetch(`http://localhost:3005/tasks/${editTask.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify({
-      text: changedTask,
+      text: editTask.changedTask,
     }),
   })
     .then((rawResponse) => rawResponse.json())

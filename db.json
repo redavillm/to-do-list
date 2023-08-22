@@ -25,8 +25,16 @@
       "text": "Tellus mauris a diam maecenas sed enim ut sem viverra aliquet"
     },
     {
-      "id": 8,
-      "text": "Felis eget nunc lobortis mattis aliquam faucibus purus in massa tempor"
+      "text": "Auctor eu augue ut lectus arcu bibendum at varius vel pharetra",
+      "id": 8
+    },
+    {
+      "text": "new test task",
+      "id": 9
+    },
+    {
+      "text": "get some task",
+      "id": 10
     }
   ]
 }
