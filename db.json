@@ -2,7 +2,7 @@
   "tasks": [
     {
       "id": 1,
-      "text": "Tellus mauris a diam maecenas sed enim ut sem viverra aliquet"
+      "text": "Tellus mauris a diam maecenas sed enim ut sem viverra aliquet Tellus mauris a diam maecenas sed enim ut sem viverra aliquet Tellus mauris a diam maecenas sed enim ut sem viverra aliquet Tellus mauris a diam maecenas sed enim ut sem viverra aliquet"
     },
     {
       "id": 2,
@@ -29,12 +29,8 @@
       "id": 8
     },
     {
-      "text": "new test task",
+      "text": "sdfasdfsafasdf",
       "id": 9
-    },
-    {
-      "text": "get some task",
-      "id": 10
     }
   ]
 }

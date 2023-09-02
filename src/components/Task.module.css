@@ -1,20 +1,55 @@
 .task {
   padding: 30px 30px;
   display: flex;
-  font-size: 16px;
   justify-content: space-between;
+}
+
+.show_task {
+  font-size: 16px;
+  visibility: visible;
+  opacity: 1;
+  width: 750px;
 }
 
 .task:hover {
   background-color: #33373d;
 }
 
+.task_none {
+  font-size: 16px;
+  visibility: hidden;
+  opacity: 0;
+  width: 750px;
+}
+
 .del_btn {
   padding: 5px 10px;
   border-radius: 15%;
   border: none;
+  margin-left: 10px;
 }
 
 .del_btn:hover {
   background-color: rgb(167, 167, 167);
+}
+
+.show_input {
+  position: absolute;
+  visibility: visible;
+  opacity: 1;
+  z-index: 99997;
+}
+
+.input_none {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.editInput {
+  border: none;
+  outline: 0;
+  width: 600px;
+  height: 30px;
+  font-size: 16px;
 }
