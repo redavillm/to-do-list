@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./Task.module.css";
+import { requestUpdateTask } from "../scripts";
 
 export const Task = ({
   id,
@@ -10,31 +11,51 @@ export const Task = ({
   refreshList,
 }) => {
   const [visibleInput, setVisibleInput] = useState(false);
+  const [editTask, setEditTask] = useState("");
+
   const showEditInput = () => {
     setVisibleInput(!visibleInput);
   };
+
+  // const updateTask = () => {
+  //   if (editTask !== "") {
+  //     requestUpdateTask({ id, editTask, setIsLoading, refreshList });
+  //   }
+  // };
 
   return (
     <div className={styles.task} id={id}>
       <div className={!visibleInput ? styles.show_task : styles.task_none}>
         {index + 1}. {text}
       </div>
-      <div className={visibleInput ? styles.show_input : styles.input_none}>
-        <input placeholder={text} className={styles.editInput}></input>
-      </div>
-      <div>
-        <button className={styles.del_btn} onClick={showEditInput}>
-          Edit
-        </button>
-        <button
-          className={styles.del_btn}
-          onClick={() => {
-            requestRemoveTask({ id, setIsLoading, refreshList });
-          }}
-        >
-          X
-        </button>
-      </div>
+      <form className={visibleInput ? styles.show_input : styles.input_none}>
+        <input
+          placeholder={text}
+          className={styles.editInput}
+          value={editTask}
+          onChange={({ target }) => setEditTask(target.value)}
+        ></input>
+      </form>
+      <button
+        className={styles.edit_btn}
+        onClick={() => {
+          showEditInput();
+          if (visibleInput) {
+            console.log(editTask);
+            requestUpdateTask({ id, editTask, setIsLoading, refreshList });
+          }
+        }}
+      >
+        Edit
+      </button>
+      <button
+        className={styles.del_btn}
+        onClick={() => {
+          requestRemoveTask({ id, setIsLoading, refreshList });
+        }}
+      >
+        X
+      </button>
     </div>
   );
 };

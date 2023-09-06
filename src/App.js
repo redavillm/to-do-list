@@ -36,7 +36,7 @@ function App() {
           <button className={styles.menu_btn} onClick={showModalNewTaskWindow}>
             + Add new task +
           </button>
-          <button className={styles.menu_btn}>Sort by ABC</button>
+          {/* <button className={styles.menu_btn}>Sort by ABC</button> */}
           {/* <form>
             <input className={styles.search_input}></input>
             <button className={styles.menu_btn}>Search</button>
@@ -65,8 +65,8 @@ function App() {
       <ModalWindows
         showModalNewTaskWindow={showModalNewTaskWindow}
         newTask={newTask}
-        setIsLoading={setIsLoading}
         setNewTask={setNewTask}
+        setIsLoading={setIsLoading}
         visibleModalkWindow={visibleModalWindow}
       />
     </div>

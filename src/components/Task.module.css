@@ -1,7 +1,8 @@
 .task {
   padding: 30px 30px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
 }
 
 .show_task {
@@ -29,7 +30,19 @@
   margin-left: 10px;
 }
 
+.edit_btn {
+  padding: 5px 10px;
+  border-radius: 15%;
+  border: none;
+  margin-left: 10px;
+  /* height: 30px; */
+}
+
 .del_btn:hover {
+  background-color: rgb(167, 167, 167);
+}
+
+.edit_btn:hover {
   background-color: rgb(167, 167, 167);
 }
 
