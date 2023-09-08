@@ -34,8 +34,7 @@ export const Task = ({
         className={styles.edit_btn}
         onClick={() => {
           showEditInput();
-          if (visibleInput) {
-            console.log(editTask);
+          if (visibleInput && editTask !== "") {
             requestUpdateTask({ id, editTask, setIsLoading, refreshList });
           }
         }}

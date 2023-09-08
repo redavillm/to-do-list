@@ -11,6 +11,7 @@ function App() {
   const [newTask, setNewTask] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [refreshListFlag, setRefreshListFlag] = useState(false);
+  // const [findingTask, setFindingTask] = useState("");
 
   const refreshList = () => setRefreshListFlag(!refreshListFlag);
 
@@ -43,22 +44,22 @@ function App() {
     ));
   };
 
-  const findTasksList = (string) => {
-    return tasks
-      .filter((task) => task.text === string)
-      .map(({ id, text }, index) => (
-        <div>
-          <Task
-            id={id}
-            text={text}
-            index={index}
-            requestRemoveTask={requestRemoveTask}
-            setIsLoading={setIsLoading}
-            refreshList={refreshList}
-          />
-        </div>
-      ));
-  };
+  // const findTasksList = (string) => {
+  //   return tasks
+  //     .filter((task) => task.text === string)
+  //     .map(({ id, text }, index) => (
+  //       <div>
+  //         <Task
+  //           id={id}
+  //           text={text}
+  //           index={index}
+  //           requestRemoveTask={requestRemoveTask}
+  //           setIsLoading={setIsLoading}
+  //           refreshList={refreshList}
+  //         />
+  //       </div>
+  //     ));
+  // };
 
   return (
     <div className={styles.app}>
@@ -70,7 +71,10 @@ function App() {
           </button>
           <button className={styles.menu_btn}>Sort by ABC</button>
           <form>
-            <input placeholder='What are you looking for?' className={styles.search_input}></input>
+            <input
+              placeholder="Find task..."
+              className={styles.search_input}
+            ></input>
             <button className={styles.menu_btn}>Search</button>
           </form>
         </div>
