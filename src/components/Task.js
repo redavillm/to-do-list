@@ -17,12 +17,6 @@ export const Task = ({
     setVisibleInput(!visibleInput);
   };
 
-  // const updateTask = () => {
-  //   if (editTask !== "") {
-  //     requestUpdateTask({ id, editTask, setIsLoading, refreshList });
-  //   }
-  // };
-
   return (
     <div className={styles.task} id={id}>
       <div className={!visibleInput ? styles.show_task : styles.task_none}>

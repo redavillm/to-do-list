@@ -28,6 +28,38 @@ function App() {
     setVisibleModalWindow(!visibleModalWindow);
   };
 
+  const createTasksList = () => {
+    return tasks.map(({ id, text }, index) => (
+      <div>
+        <Task
+          id={id}
+          text={text}
+          index={index}
+          requestRemoveTask={requestRemoveTask}
+          setIsLoading={setIsLoading}
+          refreshList={refreshList}
+        />
+      </div>
+    ));
+  };
+
+  const findTasksList = (string) => {
+    return tasks
+      .filter((task) => task.text === string)
+      .map(({ id, text }, index) => (
+        <div>
+          <Task
+            id={id}
+            text={text}
+            index={index}
+            requestRemoveTask={requestRemoveTask}
+            setIsLoading={setIsLoading}
+            refreshList={refreshList}
+          />
+        </div>
+      ));
+  };
+
   return (
     <div className={styles.app}>
       <h1>Tasks list</h1>
@@ -36,28 +68,17 @@ function App() {
           <button className={styles.menu_btn} onClick={showModalNewTaskWindow}>
             + Add new task +
           </button>
-          {/* <button className={styles.menu_btn}>Sort by ABC</button> */}
-          {/* <form>
-            <input className={styles.search_input}></input>
+          <button className={styles.menu_btn}>Sort by ABC</button>
+          <form>
+            <input placeholder='What are you looking for?' className={styles.search_input}></input>
             <button className={styles.menu_btn}>Search</button>
-          </form> */}
+          </form>
         </div>
         <div className={styles.list}>
           {isLoading ? (
             <div className={styles.loader}></div>
           ) : (
-            tasks.map(({ id, text }, index) => (
-              <div>
-                <Task
-                  id={id}
-                  text={text}
-                  index={index}
-                  requestRemoveTask={requestRemoveTask}
-                  setIsLoading={setIsLoading}
-                  refreshList={refreshList}
-                />
-              </div>
-            ))
+            createTasksList()
           )}
         </div>
       </div>

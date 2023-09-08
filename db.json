@@ -1,16 +1,12 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "fasdfasdfasdfasdfasdf"
-    },
-    {
       "id": 4,
-      "text": "some new task"
+      "text": "Not new but very important task."
     },
     {
       "id": 6,
-      "text": "Auctor eu augue ut lectus arcu bibendum at varius vel pharetra"
+      "text": "Another very important task."
     },
     {
       "id": 7,
@@ -29,12 +25,12 @@
       "id": 10
     },
     {
-      "text": "sdfasdfsafasdf sdfasdfsafasdf",
-      "id": 11
-    },
-    {
       "text": "Ornare massa eget egestas purus viverra accumsan",
       "id": 12
+    },
+    {
+      "text": "Clean all windows in the house.",
+      "id": 13
     }
   ]
 }
