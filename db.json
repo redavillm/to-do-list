@@ -31,6 +31,10 @@
     {
       "text": "Clean all windows in the house.",
       "id": 13
+    },
+    {
+      "text": "New task",
+      "id": 14
     }
   ]
 }
