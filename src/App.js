@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react";
 import styles from "./App.module.css";
-import { ModalWindows } from "./components/ModalWindow";
-import { requestRemoveTask } from "./scripts";
-import { Task } from "./components/Task";
+import { useState } from "react";
+import { ModalWindows } from "./components/ModalWindow/ModalWindow";
+import { useGetTaskList } from "./hooks";
+import { createTasksList, sortTasksList, findTasksList } from "./scripts";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-
   const [visibleModalWindow, setVisibleModalWindow] = useState(false);
   const [newTask, setNewTask] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [refreshListFlag, setRefreshListFlag] = useState(false);
+  const [isSerching, setIsSerching] = useState(true);
   const [findingTask, setFindingTask] = useState("");
   const [isSorting, setIsSorting] = useState(false);
 
-  const refreshList = () => setRefreshListFlag(!refreshListFlag);
+  const { setIsLoading, isLoading, tasks } = useGetTaskList({
+    refreshListFlag,
+  });
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch("http://localhost:3005/tasks")
-      .then((loadedData) => loadedData.json())
-      .then((loadedTasks) => {
-        setTasks(loadedTasks);
-      })
-      .finally(() => setIsLoading(false));
-  }, [refreshListFlag]);
+  const refreshList = () => setRefreshListFlag(!refreshListFlag);
 
   const showModalNewTaskWindow = () => {
     setVisibleModalWindow(!visibleModalWindow);
@@ -32,65 +24,6 @@ function App() {
 
   const setSorting = () => {
     setIsSorting(!isSorting);
-  };
-
-  const createTasksList = () => {
-    return (
-      tasks
-        // .sort(function (a, b) {
-        //   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-        // })
-        .map(({ id, text }, index) => (
-          <div>
-            <Task
-              id={id}
-              text={text}
-              index={index}
-              requestRemoveTask={requestRemoveTask}
-              setIsLoading={setIsLoading}
-              refreshList={refreshList}
-            />
-          </div>
-        ))
-    );
-  };
-
-  const findTasksList = (string) => {
-    return tasks
-      .filter((task) => task.text.includes(string))
-      .map(({ id, text }, index) => (
-        <div>
-          <Task
-            id={id}
-            text={text}
-            index={index}
-            requestRemoveTask={requestRemoveTask}
-            setIsLoading={setIsLoading}
-            refreshList={refreshList}
-          />
-        </div>
-      ));
-  };
-
-  const sortListTasks = () => {
-    return tasks
-      .sort(function (a, b) {
-        let x = a.text ? a.text.toLowerCase() : "";
-        let y = b.text ? b.text.toLowerCase() : "";
-        return x < y ? -1 : x > y ? 1 : 0;
-      })
-      .map(({ id, text }, index) => (
-        <div>
-          <Task
-            id={id}
-            text={text}
-            index={index}
-            requestRemoveTask={requestRemoveTask}
-            setIsLoading={setIsLoading}
-            refreshList={refreshList}
-          />
-        </div>
-      ));
   };
 
   return (
@@ -111,17 +44,25 @@ function App() {
               value={findingTask}
               onChange={({ target }) => setFindingTask(target.value)}
             ></input>
+            <button
+              className={styles.menu_btn}
+              onClick={() => {
+                setIsSerching(!isSerching);
+              }}
+            >
+              Search
+            </button>
           </form>
         </div>
         <div className={styles.list}>
           {isLoading ? (
             <div className={styles.loader}></div>
           ) : findingTask !== "" ? (
-            findTasksList(findingTask)
+            findTasksList({ findingTask, tasks, setIsLoading, refreshList })
           ) : isSorting ? (
-            sortListTasks()
+            sortTasksList({ tasks, setIsLoading, refreshList })
           ) : (
-            createTasksList()
+            createTasksList({ tasks, setIsLoading, refreshList })
           )}
         </div>
       </div>
