@@ -2,14 +2,7 @@ import { useState } from "react";
 import styles from "./Task.module.css";
 import { requestUpdateTask } from "../scripts";
 
-export const Task = ({
-  id,
-  text,
-  index,
-  requestRemoveTask,
-  setIsLoading,
-  refreshList,
-}) => {
+export const Task = ({ id, text, index, requestRemoveTask, setIsLoading }) => {
   const [visibleInput, setVisibleInput] = useState(false);
   const [editTask, setEditTask] = useState("");
 
@@ -35,7 +28,7 @@ export const Task = ({
         onClick={() => {
           showEditInput();
           if (visibleInput && editTask !== "") {
-            requestUpdateTask({ id, editTask, setIsLoading, refreshList });
+            requestUpdateTask({ id, editTask, setIsLoading });
           }
         }}
       >
@@ -44,7 +37,7 @@ export const Task = ({
       <button
         className={styles.del_btn}
         onClick={() => {
-          requestRemoveTask({ id, setIsLoading, refreshList });
+          requestRemoveTask({ id, setIsLoading });
         }}
       >
         X

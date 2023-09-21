@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
+import { ref, onValue } from "firebase/database";
+import { db } from "../firebase";
 
-export const useGetTaskList = ({ refreshListFlag }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [tasks, setTasks] = useState([]);
+export const useGetTaskList = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [tasks, setTasks] = useState({});
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch("http://localhost:3005/tasks")
-      .then((loadedData) => loadedData.json())
-      .then((loadedTasks) => {
-        setTasks(loadedTasks);
-      })
-      .finally(() => setIsLoading(false));
-  }, [refreshListFlag]);
+    const tasksDbRef = ref(db, "tasks");
+
+    return onValue(tasksDbRef, (snapshot) => {
+      const loadedTasks = snapshot.val() || {};
+
+      setTasks(loadedTasks);
+      setIsLoading(false);
+    });
+  }, []);
 
   return {
     setIsLoading,

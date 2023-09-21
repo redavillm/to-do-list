@@ -1,13 +1,15 @@
-export const useDeleteTask = ({ id, setIsLoading, refreshList }) => {
+import { ref, remove } from "firebase/database";
+import { db } from "../firebase";
+
+export const useDeleteTask = ({ id, setIsLoading }) => {
   const requestRemoveTask = () => {
     setIsLoading(true);
-    fetch(`http://localhost:3005/tasks/${id}`, {
-      method: "DELETE",
-    })
-      .then((rawResponse) => rawResponse.json())
+
+    const taskDbRef = ref(db, `tasks/${id}`);
+
+    remove(taskDbRef)
       .then((response) => {
         console.log(response);
-        refreshList();
       })
       .finally(() => setIsLoading(false));
   };

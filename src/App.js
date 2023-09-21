@@ -7,16 +7,11 @@ import { createTasksList, sortTasksList, findTasksList } from "./scripts";
 function App() {
   const [visibleModalWindow, setVisibleModalWindow] = useState(false);
   const [newTask, setNewTask] = useState("");
-  const [refreshListFlag, setRefreshListFlag] = useState(false);
   const [isSerching, setIsSerching] = useState(true);
   const [findingTask, setFindingTask] = useState("");
   const [isSorting, setIsSorting] = useState(false);
 
-  const { setIsLoading, isLoading, tasks } = useGetTaskList({
-    refreshListFlag,
-  });
-
-  const refreshList = () => setRefreshListFlag(!refreshListFlag);
+  const { setIsLoading, isLoading, tasks } = useGetTaskList();
 
   const showModalNewTaskWindow = () => {
     setVisibleModalWindow(!visibleModalWindow);
@@ -58,11 +53,11 @@ function App() {
           {isLoading ? (
             <div className={styles.loader}></div>
           ) : findingTask !== "" ? (
-            findTasksList({ findingTask, tasks, setIsLoading, refreshList })
+            findTasksList({ findingTask, tasks, setIsLoading })
           ) : isSorting ? (
-            sortTasksList({ tasks, setIsLoading, refreshList })
+            sortTasksList({ tasks, setIsLoading })
           ) : (
-            createTasksList({ tasks, setIsLoading, refreshList })
+            createTasksList({ tasks, setIsLoading })
           )}
         </div>
       </div>

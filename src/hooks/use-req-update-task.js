@@ -1,18 +1,15 @@
-export const useUpdateTask = ({ id, editTask, setIsLoading, refreshList }) => {
+import { ref, set } from "firebase/database";
+import { db } from "../firebase";
+
+export const useUpdateTask = ({ id, editTask, setIsLoading }) => {
   const requestUpdateTask = () => {
     setIsLoading(true);
-    fetch(`http://localhost:3005/tasks/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({
-        id: id,
-        text: editTask,
-      }),
+    const taskDbRef = ref(db, `tasks/${id}`);
+    set(taskDbRef, {
+      text: editTask,
     })
-      .then((rawResponse) => rawResponse.json())
       .then((response) => {
         console.log(response);
-        refreshList();
       })
       .finally(() => setIsLoading(false));
   };
