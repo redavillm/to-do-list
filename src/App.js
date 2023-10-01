@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <h1>Tasks list</h1>
+      <h1>Tasks list from Firebase</h1>
       <div className={styles.wrapper}>
         <div className={styles.menu}>
           <button className={styles.menu_btn} onClick={showModalNewTaskWindow}>
