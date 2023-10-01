@@ -7,7 +7,6 @@ import { createTasksList, sortTasksList, findTasksList } from "./scripts";
 function App() {
   const [visibleModalWindow, setVisibleModalWindow] = useState(false);
   const [newTask, setNewTask] = useState("");
-  const [isSerching, setIsSerching] = useState(true);
   const [findingTask, setFindingTask] = useState("");
   const [isSorting, setIsSorting] = useState(false);
 
@@ -39,14 +38,6 @@ function App() {
               value={findingTask}
               onChange={({ target }) => setFindingTask(target.value)}
             ></input>
-            <button
-              className={styles.menu_btn}
-              onClick={() => {
-                setIsSerching(!isSerching);
-              }}
-            >
-              Search
-            </button>
           </form>
         </div>
         <div className={styles.list}>
