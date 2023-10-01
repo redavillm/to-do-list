@@ -1,33 +1,49 @@
-import { Task } from "./components/Task/Task";
-
-export const createTasksList = ({ tasks, setIsLoading }) => {
-  return Object.entries(tasks).map(([id, { text }], index) => (
-    <div>
-      <Task id={id} text={text} index={index} setIsLoading={setIsLoading} />
-    </div>
-  ));
+export const requestAddNewTask = ({ newTask, setIsLoading }) => {
+  setIsLoading(true);
+  return fetch("http://localhost:3005/tasks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify({
+      text: newTask,
+    }),
+  })
+    .then((rawResponse) => rawResponse.json())
+    .then((response) => console.log(response))
+    .finally(() => setIsLoading(false));
 };
 
-export const findTasksList = ({ findingTask, tasks, setIsLoading }) => {
-  return Object.entries(tasks)
-    .filter((task) => task[1].text.includes(findingTask))
-    .map(([id, { text }], index) => (
-      <div>
-        <Task id={id} text={text} index={index} setIsLoading={setIsLoading} />
-      </div>
-    ));
-};
-
-export const sortTasksList = ({ tasks, setIsLoading }) => {
-  return Object.entries(tasks)
-    .sort((a, b) => {
-      let x = a[1].text ? a[1].text.toLowerCase() : "";
-      let y = b[1].text ? b[1].text.toLowerCase() : "";
-      return x < y ? -1 : x > y ? 1 : 0;
+export const requestUpdateTask = ({
+  id,
+  editTask,
+  setIsLoading,
+  refreshList,
+}) => {
+  setIsLoading(true);
+  fetch(`http://localhost:3005/tasks/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify({
+      id: id,
+      text: editTask,
+    }),
+  })
+    .then((rawResponse) => rawResponse.json())
+    .then((response) => {
+      console.log(response);
+      refreshList();
     })
-    .map(([id, { text }], index) => (
-      <div>
-        <Task id={id} text={text} index={index} setIsLoading={setIsLoading} />
-      </div>
-    ));
+    .finally(() => setIsLoading(false));
+};
+
+export const requestRemoveTask = ({ id, setIsLoading, refreshList }) => {
+  setIsLoading(true);
+  fetch(`http://localhost:3005/tasks/${id}`, {
+    method: "DELETE",
+  })
+    .then((rawResponse) => rawResponse.json())
+    .then((response) => {
+      console.log(response);
+      refreshList();
+    })
+    .finally(() => setIsLoading(false));
 };
