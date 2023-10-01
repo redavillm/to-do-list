@@ -1,5 +1,5 @@
 import styles from "./ModalWindow.module.css";
-import { requestAddNewTask } from "../scripts";
+import { useRequestAddNewTask } from "../hooks/use-requset-add-new-task";
 
 export const ModalWindows = ({
   showModalNewTaskWindow,
@@ -7,7 +7,13 @@ export const ModalWindows = ({
   setIsLoading,
   setNewTask,
   visibleModalkWindow,
+  refreshList,
 }) => {
+  const { requestAddNewTask } = useRequestAddNewTask({
+    newTask,
+    setIsLoading,
+    refreshList,
+  });
   return (
     <div
       className={

@@ -1,10 +1,6 @@
 {
   "tasks": [
     {
-      "id": 4,
-      "text": "First Important task."
-    },
-    {
       "id": 6,
       "text": "Another very important task."
     },
@@ -37,12 +33,16 @@
       "text": "Clean all windows in the house."
     },
     {
-      "text": "Some new task",
-      "id": 15
+      "text": "Task about refactoring",
+      "id": 17
     },
     {
-      "text": "Some second new task",
-      "id": 16
+      "text": "gsdfgsdfgsdgsdfgsd",
+      "id": 18
+    },
+    {
+      "text": "fsdfsdfdsfsdf",
+      "id": 19
     }
   ]
 }

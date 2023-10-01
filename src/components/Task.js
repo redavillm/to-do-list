@@ -1,17 +1,23 @@
 import { useState } from "react";
 import styles from "./Task.module.css";
-import { requestUpdateTask } from "../scripts";
+import { useRequestUpdateTask, useRequestRemoveTask } from "../hooks";
 
-export const Task = ({
-  id,
-  text,
-  index,
-  requestRemoveTask,
-  setIsLoading,
-  refreshList,
-}) => {
+export const Task = ({ id, text, index, setIsLoading, refreshList }) => {
   const [visibleInput, setVisibleInput] = useState(false);
   const [editTask, setEditTask] = useState("");
+
+  const { requestRemoveTask } = useRequestRemoveTask({
+    id,
+    setIsLoading,
+    refreshList,
+  });
+
+  const { requestUpdateTask } = useRequestUpdateTask({
+    id,
+    editTask,
+    setIsLoading,
+    refreshList,
+  });
 
   const showEditInput = () => {
     setVisibleInput(!visibleInput);

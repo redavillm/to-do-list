@@ -1,49 +1,57 @@
-export const requestAddNewTask = ({ newTask, setIsLoading }) => {
-  setIsLoading(true);
-  return fetch("http://localhost:3005/tasks", {
-    method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify({
-      text: newTask,
-    }),
-  })
-    .then((rawResponse) => rawResponse.json())
-    .then((response) => console.log(response))
-    .finally(() => setIsLoading(false));
+import { Task } from "./components/Task";
+
+export const createTasksList = ({ tasks, setIsLoading, refreshList }) => {
+  return (
+    tasks
+      // .sort(function (a, b) {
+      //   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      // })
+      .map(({ id, text }, index) => (
+        <div>
+          <Task
+            id={id}
+            text={text}
+            index={index}
+            setIsLoading={setIsLoading}
+            refreshList={refreshList}
+          />
+        </div>
+      ))
+  );
 };
 
-export const requestUpdateTask = ({
-  id,
-  editTask,
-  setIsLoading,
-  refreshList,
-}) => {
-  setIsLoading(true);
-  fetch(`http://localhost:3005/tasks/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify({
-      id: id,
-      text: editTask,
-    }),
-  })
-    .then((rawResponse) => rawResponse.json())
-    .then((response) => {
-      console.log(response);
-      refreshList();
-    })
-    .finally(() => setIsLoading(false));
+export const findTasksList = ({ string, tasks, setIsLoading, refreshList }) => {
+  return tasks
+    .filter((task) => task.text.includes(string))
+    .map(({ id, text }, index) => (
+      <div>
+        <Task
+          id={id}
+          text={text}
+          index={index}
+          setIsLoading={setIsLoading}
+          refreshList={refreshList}
+        />
+      </div>
+    ));
 };
 
-export const requestRemoveTask = ({ id, setIsLoading, refreshList }) => {
-  setIsLoading(true);
-  fetch(`http://localhost:3005/tasks/${id}`, {
-    method: "DELETE",
-  })
-    .then((rawResponse) => rawResponse.json())
-    .then((response) => {
-      console.log(response);
-      refreshList();
+export const sortListTasks = ({ tasks, setIsLoading, refreshList }) => {
+  return tasks
+    .sort(function (a, b) {
+      let x = a.text ? a.text.toLowerCase() : "";
+      let y = b.text ? b.text.toLowerCase() : "";
+      return x < y ? -1 : x > y ? 1 : 0;
     })
-    .finally(() => setIsLoading(false));
+    .map(({ id, text }, index) => (
+      <div>
+        <Task
+          id={id}
+          text={text}
+          index={index}
+          setIsLoading={setIsLoading}
+          refreshList={refreshList}
+        />
+      </div>
+    ));
 };
