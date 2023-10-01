@@ -1,1 +1,5 @@
-const arrr = 7;
+const arr = ["some", "array", "stuff"];
+
+const showarr = () => arr;
+
+showarr();
