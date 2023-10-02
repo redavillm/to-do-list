@@ -1,14 +1,14 @@
 import styles from "./ModalWindow.module.css";
-import { useRequestAddNewTask } from "../hooks/use-requset-add-new-task";
+import { useRequestAddNewTask } from "../../hooks/use-requset-add-new-task";
+import { useState } from "react";
 
 export const ModalWindows = ({
   showModalNewTaskWindow,
-  newTask,
   setIsLoading,
-  setNewTask,
   visibleModalkWindow,
   refreshList,
 }) => {
+  const [newTask, setNewTask] = useState("");
   const { requestAddNewTask } = useRequestAddNewTask({
     newTask,
     setIsLoading,

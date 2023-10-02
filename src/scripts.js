@@ -1,28 +1,27 @@
-import { Task } from "./components/Task";
+import { Task } from "./components/Task/Task";
 
 export const createTasksList = ({ tasks, setIsLoading, refreshList }) => {
-  return (
-    tasks
-      // .sort(function (a, b) {
-      //   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-      // })
-      .map(({ id, text }, index) => (
-        <div>
-          <Task
-            id={id}
-            text={text}
-            index={index}
-            setIsLoading={setIsLoading}
-            refreshList={refreshList}
-          />
-        </div>
-      ))
-  );
+  return tasks.map(({ id, text }, index) => (
+    <div>
+      <Task
+        id={id}
+        text={text}
+        index={index}
+        setIsLoading={setIsLoading}
+        refreshList={refreshList}
+      />
+    </div>
+  ));
 };
 
-export const findTasksList = ({ string, tasks, setIsLoading, refreshList }) => {
+export const findTasksList = ({
+  findingTask,
+  tasks,
+  setIsLoading,
+  refreshList,
+}) => {
   return tasks
-    .filter((task) => task.text.includes(string))
+    .filter((task) => task.text.includes(findingTask))
     .map(({ id, text }, index) => (
       <div>
         <Task
@@ -37,7 +36,8 @@ export const findTasksList = ({ string, tasks, setIsLoading, refreshList }) => {
 };
 
 export const sortListTasks = ({ tasks, setIsLoading, refreshList }) => {
-  return tasks
+  const arr = tasks;
+  return arr
     .sort(function (a, b) {
       let x = a.text ? a.text.toLowerCase() : "";
       let y = b.text ? b.text.toLowerCase() : "";
@@ -55,3 +55,5 @@ export const sortListTasks = ({ tasks, setIsLoading, refreshList }) => {
       </div>
     ));
 };
+
+export const serachTask = (id) => {};

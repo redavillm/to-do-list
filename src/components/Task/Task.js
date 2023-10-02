@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Task.module.css";
-import { useRequestUpdateTask, useRequestRemoveTask } from "../hooks";
+import { useRequestUpdateTask, useRequestRemoveTask } from "../../hooks";
+import { Link } from "react-router-dom";
 
 export const Task = ({ id, text, index, setIsLoading, refreshList }) => {
   const [visibleInput, setVisibleInput] = useState(false);
@@ -26,7 +27,9 @@ export const Task = ({ id, text, index, setIsLoading, refreshList }) => {
   return (
     <div className={styles.task} id={id}>
       <div className={!visibleInput ? styles.show_task : styles.task_none}>
-        {index + 1}. {text}
+        <Link to={`:${id}`}>
+          {index + 1}. {text}
+        </Link>
       </div>
       <form className={visibleInput ? styles.show_input : styles.input_none}>
         <input

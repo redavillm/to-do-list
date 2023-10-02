@@ -1,3 +1,9 @@
+body a {
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+}
+
 .app {
   text-align: center;
   background-color: #282c34;
@@ -9,63 +15,7 @@
   color: white;
 }
 
-.wrapper {
-  border: 3px rgb(191, 215, 252) solid;
-  border-radius: 3px;
-}
-
-.menu {
-  display: flex;
-  justify-content: space-between;
-  background-color: #3a3e46;
-  width: 900px;
-  padding: 20px 20px;
-}
-
-.menu_btn {
-  padding: 10px 20px;
-  background-color: white;
-  border: none;
-  border-radius: 3px;
-  font-size: 18px;
-}
-
-.menu_btn:hover {
-  background-color: rgb(167, 167, 167);
-}
-
-.search_input {
-  padding: 10px 20px;
-  background-color: white;
-  border: none;
-  border-radius: 3px;
-  font-size: 14px;
-  margin-right: 10px;
-  outline: 0;
-}
-
-.list {
-  text-align: left;
-}
-
-.loader {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 30px;
-  height: 30px;
-  border: 5px solid white;
-  border-radius: 50%;
-  border-left-color: transparent;
-  animation: loader 1s infinite;
-}
-
-@keyframes loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.app h1 {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ffffff;
 }
