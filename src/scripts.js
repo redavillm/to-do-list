@@ -1,11 +1,11 @@
 import { Task } from "./components/Task/Task";
 
 export const createTasksList = ({ tasks, setIsLoading, refreshList }) => {
-  return tasks.map(({ id, text }, index) => (
+  return tasks.map(({ id, title }, index) => (
     <div>
       <Task
         id={id}
-        text={text}
+        title={title}
         index={index}
         setIsLoading={setIsLoading}
         refreshList={refreshList}
@@ -21,12 +21,12 @@ export const findTasksList = ({
   refreshList,
 }) => {
   return tasks
-    .filter((task) => task.text.includes(findingTask))
-    .map(({ id, text }, index) => (
+    .filter((task) => task.title.includes(findingTask))
+    .map(({ id, title }, index) => (
       <div>
         <Task
           id={id}
-          text={text}
+          title={title}
           index={index}
           setIsLoading={setIsLoading}
           refreshList={refreshList}
@@ -39,15 +39,15 @@ export const sortListTasks = ({ tasks, setIsLoading, refreshList }) => {
   const arr = tasks;
   return arr
     .sort(function (a, b) {
-      let x = a.text ? a.text.toLowerCase() : "";
-      let y = b.text ? b.text.toLowerCase() : "";
+      let x = a.title ? a.title.toLowerCase() : "";
+      let y = b.title ? b.title.toLowerCase() : "";
       return x < y ? -1 : x > y ? 1 : 0;
     })
-    .map(({ id, text }, index) => (
+    .map(({ id, title }, index) => (
       <div>
         <Task
           id={id}
-          text={text}
+          title={title}
           index={index}
           setIsLoading={setIsLoading}
           refreshList={refreshList}
@@ -56,4 +56,6 @@ export const sortListTasks = ({ tasks, setIsLoading, refreshList }) => {
     ));
 };
 
-export const serachTask = (id) => {};
+export const fetchTask = (id, tasks) => {
+  return tasks.find((el) => el.id === id);
+};

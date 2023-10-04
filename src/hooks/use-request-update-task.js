@@ -11,7 +11,7 @@ export const useRequestUpdateTask = ({
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify({
         id: id,
-        text: editTask,
+        title: editTask,
       }),
     })
       .then((rawResponse) => rawResponse.json())

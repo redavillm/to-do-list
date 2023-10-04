@@ -23,26 +23,14 @@
   width: 750px;
 }
 
-.del_btn {
-  padding: 5px 10px;
+.btn {
+  padding: 10px 20px;
   border-radius: 15%;
   border: none;
   margin-left: 10px;
 }
 
-.edit_btn {
-  padding: 5px 10px;
-  border-radius: 15%;
-  border: none;
-  margin-left: 10px;
-  /* height: 30px; */
-}
-
-.del_btn:hover {
-  background-color: rgb(167, 167, 167);
-}
-
-.edit_btn:hover {
+.btn:hover {
   background-color: rgb(167, 167, 167);
 }
 

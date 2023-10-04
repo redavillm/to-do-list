@@ -3,7 +3,7 @@ import styles from "./Task.module.css";
 import { useRequestUpdateTask, useRequestRemoveTask } from "../../hooks";
 import { Link } from "react-router-dom";
 
-export const Task = ({ id, text, index, setIsLoading, refreshList }) => {
+export const Task = ({ id, title, index, setIsLoading, refreshList }) => {
   const [visibleInput, setVisibleInput] = useState(false);
   const [editTask, setEditTask] = useState("");
 
@@ -27,20 +27,20 @@ export const Task = ({ id, text, index, setIsLoading, refreshList }) => {
   return (
     <div className={styles.task} id={id}>
       <div className={!visibleInput ? styles.show_task : styles.task_none}>
-        <Link to={`:${id}`}>
-          {index + 1}. {text}
+        <Link to={`/${id}`}>
+          {index + 1}. {title}
         </Link>
       </div>
       <form className={visibleInput ? styles.show_input : styles.input_none}>
         <input
-          placeholder={text}
+          placeholder={title}
           className={styles.editInput}
           value={editTask}
           onChange={({ target }) => setEditTask(target.value)}
         ></input>
       </form>
       <button
-        className={styles.edit_btn}
+        className={styles.btn}
         onClick={() => {
           showEditInput();
           if (visibleInput && editTask !== "") {
@@ -51,7 +51,7 @@ export const Task = ({ id, text, index, setIsLoading, refreshList }) => {
         Edit
       </button>
       <button
-        className={styles.del_btn}
+        className={styles.btn}
         onClick={() => {
           requestRemoveTask({ id, setIsLoading, refreshList });
         }}

@@ -1,0 +1,29 @@
+.wrapper {
+  border: 3px rgb(191, 215, 252) solid;
+  border-radius: 3px;
+  max-width: 1200px;
+}
+
+.task_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #727272;
+  padding: 0px 30px;
+}
+
+.task_title button {
+  height: 40px;
+  width: 70px;
+  margin-left: 10px;
+  transition: background-color 0.4s;
+}
+.task_title button:hover {
+  background-color: #6f8dc9;
+}
+
+.wrapper p {
+  font-size: 16px;
+  text-align: left;
+  padding: 30px;
+}
