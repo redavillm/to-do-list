@@ -4,6 +4,8 @@ export const useRequestUpdateTask = ({
   setIsLoading,
   refreshList,
 }) => {
+  const { title, text } = editTask;
+
   const requestUpdateTask = () => {
     setIsLoading(true);
     fetch(`http://localhost:3005/tasks/${id}`, {
@@ -11,7 +13,8 @@ export const useRequestUpdateTask = ({
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify({
         id: id,
-        title: editTask,
+        title: title,
+        text: text,
       }),
     })
       .then((rawResponse) => rawResponse.json())

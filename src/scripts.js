@@ -1,15 +1,9 @@
 import { Task } from "./components/Task/Task";
 
-export const createTasksList = ({ tasks, setIsLoading, refreshList }) => {
+export const createTasksList = ({ tasks }) => {
   return tasks.map(({ id, title }, index) => (
     <div>
-      <Task
-        id={id}
-        title={title}
-        index={index}
-        setIsLoading={setIsLoading}
-        refreshList={refreshList}
-      />
+      <Task id={id} title={title} index={index} />
     </div>
   ));
 };
@@ -57,5 +51,5 @@ export const sortListTasks = ({ tasks, setIsLoading, refreshList }) => {
 };
 
 export const fetchTask = (id, tasks) => {
-  return tasks.find((el) => el.id === id);
+  return tasks.find((task) => task.id === +id);
 };

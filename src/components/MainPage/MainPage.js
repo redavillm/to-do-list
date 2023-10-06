@@ -2,15 +2,22 @@ import styles from "./MainPage.module.css";
 import { useState } from "react";
 import { ModalWindows } from "../ModalWindow/ModalWindow";
 import { createTasksList, findTasksList, sortListTasks } from "../../scripts";
+import { useRequestGetTasksList } from "../../hooks";
 
-export const MainPage = ({ tasks, isLoading, setIsLoading, refreshList }) => {
+export const MainPage = () => {
   const [visibleModalWindow, setVisibleModalWindow] = useState(false);
   const [isSorting, setIsSorting] = useState(false);
   const [findingTask, setFindingTask] = useState("");
+  const [refreshListFlag, setRefreshListFlag] = useState(false);
 
-  const showModalNewTaskWindow = () => {
+  const refreshList = () => setRefreshListFlag(!refreshListFlag);
+
+  const { tasks, isLoading, setIsLoading } = useRequestGetTasksList({
+    refreshListFlag,
+  });
+
+  const showModalNewTaskWindow = () =>
     setVisibleModalWindow(!visibleModalWindow);
-  };
 
   const setSorting = () => {
     setIsSorting(!isSorting);
@@ -48,7 +55,7 @@ export const MainPage = ({ tasks, isLoading, setIsLoading, refreshList }) => {
           ) : isSorting ? (
             sortListTasks({ tasks, setIsLoading, refreshList })
           ) : (
-            createTasksList({ tasks, setIsLoading, refreshList })
+            createTasksList({ tasks })
           )}
         </div>
       </div>
