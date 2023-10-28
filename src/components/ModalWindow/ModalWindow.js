@@ -25,7 +25,11 @@ export const ModalWindows = ({
           <button onClick={showModalNewTaskWindow}>X</button>
         </div>
         <div className={styles.modal_title}>Describe your task</div>
-        <form onSubmit={() => requestAddNewTask({ newTask, setIsLoading })}>
+        <form
+          onSubmit={() =>
+            requestAddNewTask({ newTask, setIsLoading, refreshList })
+          }
+        >
           <input
             className={styles.modal_input}
             type="text"

@@ -1,9 +1,9 @@
 import { Task } from "./components/Task/Task";
 
 export const createTasksList = ({ tasks }) => {
-  return tasks.map(({ id, title }, index) => (
+  return tasks.map(({ id, text }, index) => (
     <div>
-      <Task id={id} title={title} index={index} />
+      <Task id={id} text={text} index={index} />
     </div>
   ));
 };
@@ -15,12 +15,12 @@ export const findTasksList = ({
   refreshList,
 }) => {
   return tasks
-    .filter((task) => task.title.includes(findingTask))
-    .map(({ id, title }, index) => (
+    .filter((task) => task.text.includes(findingTask))
+    .map(({ id, text }, index) => (
       <div>
         <Task
           id={id}
-          title={title}
+          text={text}
           index={index}
           setIsLoading={setIsLoading}
           refreshList={refreshList}
@@ -29,22 +29,28 @@ export const findTasksList = ({
     ));
 };
 
-export const sortListTasks = ({ tasks, setIsLoading, refreshList }) => {
+export const sortListTasks = ({
+  tasks,
+  setIsLoading,
+  refreshList,
+  isSorting,
+}) => {
   const arr = tasks;
   return arr
     .sort(function (a, b) {
-      let x = a.title ? a.title.toLowerCase() : "";
-      let y = b.title ? b.title.toLowerCase() : "";
+      let x = a.text ? a.text.toLowerCase() : "";
+      let y = b.text ? b.text.toLowerCase() : "";
       return x < y ? -1 : x > y ? 1 : 0;
     })
-    .map(({ id, title }, index) => (
+    .map(({ id, text }, index) => (
       <div>
         <Task
           id={id}
-          title={title}
+          text={text}
           index={index}
           setIsLoading={setIsLoading}
           refreshList={refreshList}
+          isSorting={isSorting}
         />
       </div>
     ));

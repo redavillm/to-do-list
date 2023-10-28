@@ -9,7 +9,7 @@ export const useRequestAddNewTask = ({
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify({
-        title: newTask,
+        text: newTask,
       }),
     })
       .then((rawResponse) => rawResponse.json())

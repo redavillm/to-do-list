@@ -10,10 +10,7 @@ const TaskNotFund = () => {
 
 export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
   const [modal, setModal] = useState(false);
-  const [editTask, setEditTask] = useState({
-    title: "",
-    text: "",
-  });
+  const [editTask, setEditTask] = useState("");
 
   const params = useParams();
 
@@ -38,7 +35,7 @@ export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
     return <TaskNotFund />;
   }
 
-  const { title, text } = task;
+  const { text } = task;
 
   return (
     <>
@@ -48,7 +45,6 @@ export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
         ) : (
           <>
             <div className={styles.task_title}>
-              <h5>{title}</h5>
               <div>
                 <button onClick={showModal}>Edit</button>
                 <button>Delete</button>
@@ -73,37 +69,17 @@ export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
           >
             <input
               className={styles.modal_input}
-              type="title"
-              name="task"
-              value={editTask.title}
-              onChange={({ target }) =>
-                setEditTask({
-                  ...editTask,
-                  title: `${target.value}`,
-                  text: editTask.text,
-                })
-              }
-            ></input>
-            <input
-              className={styles.modal_input}
               type="text"
               name="task"
-              value={editTask.text}
-              s
-              onChange={({ target }) =>
-                setEditTask({
-                  ...editTask,
-                  title: editTask.title,
-                  text: `${target.value}`,
-                })
-              }
+              value={editTask}
+              onChange={({ target }) => setEditTask(target.value)}
             ></input>
             <button
               className={styles.modal_btn}
               type="submit"
-              disabled={!editTask.title || !editTask.text}
+              disabled={!editTask}
             >
-              Add task
+              Edit task
             </button>
           </form>
         </div>
