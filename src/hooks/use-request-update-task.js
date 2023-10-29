@@ -7,11 +7,10 @@ export const useRequestUpdateTask = ({
   const requestUpdateTask = () => {
     setIsLoading(true);
     fetch(`http://localhost:3005/tasks/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify({
         text: editTask,
-        id: id,
       }),
     })
       .then((rawResponse) => rawResponse.json())

@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { useRequestGetTasksList, useRequestUpdateTask } from "../../hooks";
+import {
+  useRequestGetTasksList,
+  useRequestRemoveTask,
+  useRequestUpdateTask,
+} from "../../hooks";
 import { fetchTask } from "../../scripts";
 import styles from "./TaskPage.module.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const TaskNotFund = () => {
   return <div>/ This task doesn`t exist. /</div>;
 };
 
-export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
+export const TaskPage = ({ refreshListFlag, refreshList }) => {
   const [modal, setModal] = useState(false);
+  const [remModal, setRemModal] = useState(false);
   const [editTask, setEditTask] = useState("");
 
   const params = useParams();
@@ -17,9 +22,16 @@ export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
   const id = params.id;
 
   const showModal = () => setModal(!modal);
+  const showRemModal = () => setRemModal(!remModal);
 
-  const { tasks, isLoading } = useRequestGetTasksList({
+  const { tasks, isLoading, setIsLoading } = useRequestGetTasksList({
     refreshListFlag,
+  });
+
+  const { requestRemoveTask } = useRequestRemoveTask({
+    id,
+    setIsLoading,
+    refreshList,
   });
 
   const { requestUpdateTask } = useRequestUpdateTask({
@@ -45,18 +57,14 @@ export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
         ) : (
           <>
             <div className={styles.task_title}>
-              <div>
-                <button onClick={showModal}>Edit</button>
-                <button>Delete</button>
-              </div>
+              <button onClick={showModal}>Edit</button>
+              <button onClick={showRemModal}>Delete</button>
             </div>
             <p>{text}</p>
           </>
         )}
       </div>
-      <div
-        className={modal ? styles.modal_edit_task_window : styles.modal_none}
-      >
+      <div className={modal ? styles.modal_show : styles.modal_none}>
         <div className={styles.modal_box}>
           <div className={styles.modal_btn_wrapper}>
             <button onClick={showModal}>X</button>
@@ -67,13 +75,15 @@ export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
               requestUpdateTask({ id, editTask, setIsLoading, refreshList })
             }
           >
-            <input
+            <textarea
+              rows="7"
+              cols="33"
               className={styles.modal_input}
-              type="text"
-              name="task"
               value={editTask}
               onChange={({ target }) => setEditTask(target.value)}
-            ></input>
+            >
+              {text}
+            </textarea>
             <button
               className={styles.modal_btn}
               type="submit"
@@ -82,6 +92,30 @@ export const TaskPage = ({ setIsLoading, refreshListFlag, refreshList }) => {
               Edit task
             </button>
           </form>
+        </div>
+      </div>
+      <div className={remModal ? styles.modal_show : styles.modal_none}>
+        <div className={styles.modal_rem_box}>
+          <div className={styles.modal_btn_wrapper}>
+            <button onClick={showRemModal}>X</button>
+          </div>
+          <div className={styles.modal_title}>Are you sure?</div>
+          <div className={styles.rem_btn}>
+            <Link to="/">
+              <button
+                className={styles.modal_btn}
+                onClick={() => {
+                  console.log("onSubmit==>>", id);
+                  requestRemoveTask({ id, setIsLoading, refreshList });
+                }}
+              >
+                Yes
+              </button>
+            </Link>
+            <button className={styles.modal_btn} onClick={showRemModal}>
+              No
+            </button>
+          </div>
         </div>
       </div>
     </>

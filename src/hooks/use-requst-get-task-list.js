@@ -7,9 +7,9 @@ export const useRequestGetTasksList = ({ refreshListFlag }) => {
   useEffect(() => {
     setIsLoading(true);
     fetch("http://localhost:3005/tasks")
-      .then((loadedData) => loadedData.json())
-      .then((loadedTasks) => {
-        setTasks(loadedTasks);
+      .then((data) => data.json())
+      .then((tasks) => {
+        setTasks(tasks);
       })
       .finally(() => setIsLoading(false));
   }, [refreshListFlag]);

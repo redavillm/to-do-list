@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #727272;
-  padding: 0px 30px;
+  padding: 10px 30px;
 }
 
 .task_title button {
@@ -44,7 +44,7 @@
   opacity: 0;
 }
 
-.modal_new_task_window {
+.modal_show {
   position: fixed;
   left: 0;
   top: 0;
@@ -94,9 +94,25 @@
 }
 
 .modal_input {
-  width: 300px;
+  width: 400px;
   font-size: 18px;
   outline: 0;
   padding: 0px 10px;
   margin: 0px 40px;
+}
+
+.modal_rem_box {
+  width: 500px;
+  text-align: center;
+  padding: 5px 5px;
+  padding: 45;
+  z-index: 1;
+  background-color: #344f85;
+  border: 3px rgb(191, 215, 252) solid;
+  border-radius: 5px;
+}
+
+.rem_btn {
+  display: flex;
+  justify-content: space-around;
 }

@@ -4,13 +4,10 @@ import { ModalWindows } from "../ModalWindow/ModalWindow";
 import { createTasksList, findTasksList, sortListTasks } from "../../scripts";
 import { useRequestGetTasksList } from "../../hooks";
 
-export const MainPage = () => {
+export const MainPage = ({ refreshListFlag, refreshList }) => {
   const [visibleModalWindow, setVisibleModalWindow] = useState(false);
   const [isSorting, setIsSorting] = useState(false);
   const [findingTask, setFindingTask] = useState("");
-  const [refreshListFlag, setRefreshListFlag] = useState(false);
-
-  const refreshList = () => setRefreshListFlag(!refreshListFlag);
 
   const { tasks, isLoading, setIsLoading } = useRequestGetTasksList({
     refreshListFlag,
