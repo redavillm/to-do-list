@@ -1,0 +1,30 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  background-color: #3a3e46;
+  width: 900px;
+  padding: 20px 20px;
+}
+
+.menu_btn {
+  color: black;
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 18px;
+}
+
+.menu_btn:hover {
+  background-color: rgb(167, 167, 167);
+}
+
+.search_input {
+  padding: 10px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  margin-right: 10px;
+  outline: 0;
+}

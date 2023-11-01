@@ -1,8 +1,9 @@
 import styles from "./MainPage.module.css";
 import { useState } from "react";
 import { ModalWindows } from "../ModalWindow/ModalWindow";
-import { createTasksList, findTasksList, sortListTasks } from "../../scripts";
 import { useRequestGetTasksList } from "../../hooks";
+import { Buttons } from "./Buttons/Buttons";
+import { TaskList } from "./TaskList.js/TaskList";
 
 export const MainPage = ({ refreshListFlag, refreshList }) => {
   const [visibleModalWindow, setVisibleModalWindow] = useState(false);
@@ -22,44 +23,21 @@ export const MainPage = ({ refreshListFlag, refreshList }) => {
   return (
     <div>
       <div className={styles.wrapper}>
-        <div className={styles.menu}>
-          <button className={styles.menu_btn} onClick={showModalNewTaskWindow}>
-            + Add new task +
-          </button>
-          <button
-            className={styles.menu_btn}
-            onClick={() => {
-              setSorting();
-              refreshList();
-            }}
-          >
-            Sort by ABC
-          </button>
-          <form>
-            <input
-              placeholder="Find task..."
-              className={styles.search_input}
-              value={findingTask}
-              onChange={({ target }) => setFindingTask(target.value)}
-            ></input>
-          </form>
-        </div>
-        <div className={styles.list}>
-          {isLoading ? (
-            <div className={styles.loader}></div>
-          ) : findingTask !== "" ? (
-            findTasksList({
-              findingTask,
-              tasks,
-              setIsLoading,
-              refreshList,
-            })
-          ) : isSorting ? (
-            sortListTasks({ tasks, setIsLoading, refreshList, isSorting })
-          ) : (
-            createTasksList({ tasks })
-          )}
-        </div>
+        <Buttons
+          setFindingTask={setFindingTask}
+          setSorting={setSorting}
+          refreshList={refreshList}
+          findingTask={findingTask}
+          showModalNewTaskWindow={showModalNewTaskWindow}
+        />
+        <TaskList
+          isLoading={isLoading}
+          findingTask={findingTask}
+          tasks={tasks}
+          setIsLoading={setIsLoading}
+          refreshList={refreshList}
+          isSorting={isSorting}
+        />
       </div>
 
       <ModalWindows
