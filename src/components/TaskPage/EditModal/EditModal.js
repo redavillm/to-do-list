@@ -2,21 +2,12 @@ import styles from "./EditModal.module.css";
 import { useState } from "react";
 import { useRequestUpdateTask } from "../../../hooks";
 
-export const EditModal = ({
-  modal,
-  showModal,
-  id,
-  text,
-  setIsLoading,
-  refreshList,
-}) => {
+export const EditModal = ({ modal, showModal, id, text }) => {
   const [editTask, setEditTask] = useState("");
 
   const { requestUpdateTask } = useRequestUpdateTask({
     id,
     editTask,
-    setIsLoading,
-    refreshList,
   });
   return (
     <div className={modal ? styles.modal_show : styles.modal_none}>
@@ -25,11 +16,7 @@ export const EditModal = ({
           <button onClick={showModal}>X</button>
         </div>
         <div className={styles.modal_title}>Describe your new task</div>
-        <form
-          onSubmit={() =>
-            requestUpdateTask({ id, editTask, setIsLoading, refreshList })
-          }
-        >
+        <form onSubmit={() => requestUpdateTask({ id, editTask })}>
           <textarea
             rows="10"
             cols="33"

@@ -1,31 +1,26 @@
-import { useState } from "react";
-import { useRequestGetTasksList } from "../../hooks";
-import { fetchTask } from "../../scripts";
+import { useContext, useState } from "react";
 import styles from "./TaskPage.module.css";
 import { useParams } from "react-router-dom";
 import { EditModal } from "./EditModal/EditModal";
 import { RemModal } from "./RemModal/RemModal";
+import { LoadingContext } from "../../context";
+import { TaskNotFund } from "./TaskNotFound";
+import { useRequestGetTasksList } from "../../hooks";
 
-const TaskNotFund = () => {
-  return <div>/ This task doesn`t exist. /</div>;
-};
-
-export const TaskPage = ({ refreshListFlag, refreshList }) => {
+export const TaskPage = () => {
   const [modal, setModal] = useState(false);
   const [remModal, setRemModal] = useState(false);
-
-  const showModal = () => setModal(!modal);
+  const { isLoading } = useContext(LoadingContext);
 
   const params = useParams();
-
   const id = params.id;
 
+  const showModal = () => setModal(!modal);
   const showRemModal = () => setRemModal(!remModal);
-  const { tasks, isLoading, setIsLoading } = useRequestGetTasksList({
-    refreshListFlag,
-  });
 
-  const task = fetchTask(id, tasks);
+  const { tasks } = useRequestGetTasksList();
+
+  const task = tasks.find((task) => task.id === +id);
 
   if (!task) {
     return <TaskNotFund />;
@@ -48,22 +43,8 @@ export const TaskPage = ({ refreshListFlag, refreshList }) => {
           </>
         )}
       </div>
-      <EditModal
-        modal={modal}
-        showModal={showModal}
-        id={id}
-        text={text}
-        setIsLoading={setIsLoading}
-        refreshList={refreshList}
-      />
-
-      <RemModal
-        remModal={remModal}
-        showRemModal={showRemModal}
-        id={id}
-        setIsLoading={setIsLoading}
-        refreshList={refreshList}
-      />
+      <EditModal modal={modal} showModal={showModal} id={id} text={text} />
+      <RemModal remModal={remModal} showRemModal={showRemModal} id={id} />
     </>
   );
 };

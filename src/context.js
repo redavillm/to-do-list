@@ -1,3 +1,4 @@
 import { createContext } from "react";
 
-export const AppContext = createContext(null);
+export const RefreshContext = createContext(null);
+export const LoadingContext = createContext(null);

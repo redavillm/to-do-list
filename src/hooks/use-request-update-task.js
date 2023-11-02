@@ -1,9 +1,9 @@
-export const useRequestUpdateTask = ({
-  id,
-  editTask,
-  setIsLoading,
-  refreshList,
-}) => {
+import { useContext } from "react";
+import { LoadingContext, RefreshContext } from "../context";
+
+export const useRequestUpdateTask = ({ id, editTask }) => {
+  const { refreshList } = useContext(RefreshContext);
+  const { setIsLoading } = useContext(LoadingContext);
   const requestUpdateTask = () => {
     setIsLoading(true);
     fetch(`http://localhost:3005/tasks/${id}`, {

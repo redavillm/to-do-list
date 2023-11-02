@@ -1,18 +1,13 @@
 import styles from "./MainPage.module.css";
 import { useState } from "react";
 import { ModalWindows } from "../ModalWindow/ModalWindow";
-import { useRequestGetTasksList } from "../../hooks";
 import { Buttons } from "./Buttons/Buttons";
 import { TaskList } from "./TaskList.js/TaskList";
 
-export const MainPage = ({ refreshListFlag, refreshList }) => {
+export const MainPage = () => {
   const [visibleModalWindow, setVisibleModalWindow] = useState(false);
   const [isSorting, setIsSorting] = useState(false);
   const [findingTask, setFindingTask] = useState("");
-
-  const { tasks, isLoading, setIsLoading } = useRequestGetTasksList({
-    refreshListFlag,
-  });
 
   const showModalNewTaskWindow = () =>
     setVisibleModalWindow(!visibleModalWindow);
@@ -26,25 +21,15 @@ export const MainPage = ({ refreshListFlag, refreshList }) => {
         <Buttons
           setFindingTask={setFindingTask}
           setSorting={setSorting}
-          refreshList={refreshList}
           findingTask={findingTask}
           showModalNewTaskWindow={showModalNewTaskWindow}
         />
-        <TaskList
-          isLoading={isLoading}
-          findingTask={findingTask}
-          tasks={tasks}
-          setIsLoading={setIsLoading}
-          refreshList={refreshList}
-          isSorting={isSorting}
-        />
+        <TaskList findingTask={findingTask} isSorting={isSorting} />
       </div>
 
       <ModalWindows
         showModalNewTaskWindow={showModalNewTaskWindow}
-        setIsLoading={setIsLoading}
         visibleModalkWindow={visibleModalWindow}
-        refreshList={refreshList}
       />
     </div>
   );

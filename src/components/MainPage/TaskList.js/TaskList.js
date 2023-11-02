@@ -1,33 +1,27 @@
 import styles from "./TaskList.module.css";
-import {
-  createTasksList,
-  findTasksList,
-  sortListTasks,
-} from "../../../scripts";
+import { useContext } from "react";
+import { LoadingContext } from "../../../context";
+import { useCreateTasksList } from "../../../hooks/use-create-tasks-list";
+import { useFindTasksList } from "../../../hooks/use-find-tasks-list";
+import { useSortTasksList } from "../../../hooks/use-sort-tasks-list";
 
-export const TaskList = ({
-  isLoading,
-  findingTask,
-  tasks,
-  setIsLoading,
-  refreshList,
-  isSorting,
-}) => {
+export const TaskList = ({ findingTask, isSorting }) => {
+  const { isLoading } = useContext(LoadingContext);
+
+  const list = useCreateTasksList();
+  const sortedList = useSortTasksList(isSorting);
+  const findList = useFindTasksList({ findingTask, isSorting });
+
   return (
     <div className={styles.list}>
       {isLoading ? (
         <div className={styles.loader}></div>
       ) : findingTask !== "" ? (
-        findTasksList({
-          findingTask,
-          tasks,
-          setIsLoading,
-          refreshList,
-        })
+        findList
       ) : isSorting ? (
-        sortListTasks({ tasks, setIsLoading, refreshList, isSorting })
+        sortedList
       ) : (
-        createTasksList({ tasks })
+        list
       )}
     </div>
   );

@@ -4,16 +4,11 @@ import { useState } from "react";
 
 export const ModalWindows = ({
   showModalNewTaskWindow,
-  setIsLoading,
   visibleModalkWindow,
-  refreshList,
 }) => {
   const [newTask, setNewTask] = useState("");
-  const { requestAddNewTask } = useRequestAddNewTask({
-    newTask,
-    setIsLoading,
-    refreshList,
-  });
+  const { requestAddNewTask } = useRequestAddNewTask(newTask);
+
   return (
     <div
       className={
@@ -28,7 +23,7 @@ export const ModalWindows = ({
         <form
           onSubmit={() => {
             showModalNewTaskWindow();
-            requestAddNewTask({ newTask, setIsLoading, refreshList });
+            requestAddNewTask();
           }}
         >
           <textarea

@@ -1,12 +1,15 @@
+import { RefreshContext } from "../../../context";
 import styles from "./Buttons.module.css";
+import { useContext } from "react";
 
 export const Buttons = ({
   setSorting,
-  refreshList,
   findingTask,
   setFindingTask,
   showModalNewTaskWindow,
 }) => {
+  const { refreshList } = useContext(RefreshContext);
+
   return (
     <div className={styles.menu}>
       <button className={styles.menu_btn} onClick={showModalNewTaskWindow}>

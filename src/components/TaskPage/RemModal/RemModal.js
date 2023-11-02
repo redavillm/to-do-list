@@ -2,18 +2,8 @@ import { Link } from "react-router-dom";
 import styles from "./RemModal.module.css";
 import { useRequestRemoveTask } from "../../../hooks";
 
-export const RemModal = ({
-  remModal,
-  showRemModal,
-  id,
-  setIsLoading,
-  refreshList,
-}) => {
-  const { requestRemoveTask } = useRequestRemoveTask({
-    id,
-    setIsLoading,
-    refreshList,
-  });
+export const RemModal = ({ remModal, showRemModal, id }) => {
+  const { requestRemoveTask } = useRequestRemoveTask(id);
 
   return (
     <div className={remModal ? styles.modal_show : styles.modal_none}>
@@ -27,7 +17,7 @@ export const RemModal = ({
             <button
               className={styles.modal_btn}
               onClick={() => {
-                requestRemoveTask({ id, setIsLoading, refreshList });
+                requestRemoveTask(id);
               }}
             >
               Yes

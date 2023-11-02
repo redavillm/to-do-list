@@ -1,8 +1,9 @@
-export const useRequestAddNewTask = ({
-  newTask,
-  setIsLoading,
-  refreshList,
-}) => {
+import { useContext } from "react";
+import { LoadingContext, RefreshContext } from "../context";
+
+export const useRequestAddNewTask = ({ newTask }) => {
+  const { refreshList } = useContext(RefreshContext);
+  const { setIsLoading } = useContext(LoadingContext);
   const requestAddNewTask = () => {
     setIsLoading(true);
     fetch("http://localhost:3005/tasks", {
