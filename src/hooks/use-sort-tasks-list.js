@@ -3,8 +3,7 @@ import { useRequestGetTasksList } from "./use-requst-get-task-list";
 
 export const useSortTasksList = ({ isSorting }) => {
   const { tasks } = useRequestGetTasksList();
-  const arr = tasks;
-  return arr
+  return tasks
     .sort(function (a, b) {
       let x = a.text ? a.text.toLowerCase() : "";
       let y = b.text ? b.text.toLowerCase() : "";

@@ -9,7 +9,7 @@ export const TaskList = ({ findingTask, isSorting }) => {
   const { isLoading } = useContext(LoadingContext);
 
   const list = useCreateTasksList();
-  const sortedList = useSortTasksList(isSorting);
+  const sortedList = useSortTasksList({ isSorting });
   const findList = useFindTasksList({ findingTask, isSorting });
 
   return (
