@@ -12,6 +12,9 @@ export const TaskList = ({ findingTask, isSorting }) => {
   const sortedList = useSortTasksList({ isSorting });
   const findList = useFindTasksList({ findingTask, isSorting });
 
+
+  <>Sorry, something is going wrong, try again later.</>;
+  
   return (
     <div className={styles.list}>
       {isLoading ? (

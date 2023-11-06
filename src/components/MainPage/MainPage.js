@@ -7,7 +7,6 @@ import { TaskList } from "./TaskList.js/TaskList";
 export const MainPage = () => {
   const [visibleModalWindow, setVisibleModalWindow] = useState(false);
   const [isSorting, setIsSorting] = useState(false);
-  // const [isFinding, setIsFinding] = useState(false);
   const [findingTask, setFindingTask] = useState("");
 
   const showModalNewTaskWindow = () =>
@@ -23,7 +22,6 @@ export const MainPage = () => {
         <Buttons
           setFindingTask={setFindingTask}
           setSorting={setSorting}
-          // isFinding={isFinding}
           findingTask={findingTask}
           showModalNewTaskWindow={showModalNewTaskWindow}
         />

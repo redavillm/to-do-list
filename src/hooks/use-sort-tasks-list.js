@@ -3,6 +3,9 @@ import { useRequestGetTasksList } from "./use-requst-get-task-list";
 
 export const useSortTasksList = ({ isSorting }) => {
   const { tasks } = useRequestGetTasksList();
+  if (!tasks) {
+    return false;
+  }
   return tasks
     .sort(function (a, b) {
       let x = a.text ? a.text.toLowerCase() : "";
