@@ -1,14 +1,26 @@
-import { RefreshContext } from "../../../context";
+import { useDispatch } from "react-redux";
 import styles from "./Buttons.module.css";
-import { useContext } from "react";
+import { CHANGE_REFRESH_LIST_FLAG } from "../../../store/actions.js/change-refresh-flag-list";
+import { CHANGE_IS_SORTING } from "../../../store/actions.js/change-is-sorting";
+import { NEW_TASK_MODAL_FLAG } from "../../../store/selectors/new-task-modal-flag";
+import { setFindingTask } from "../../../store/actions.js/set-finding-task";
 
-export const Buttons = ({
-  setSorting,
-  findingTask,
-  setFindingTask,
-  showModalNewTaskWindow,
-}) => {
-  const { refreshList } = useContext(RefreshContext);
+export const Buttons = () => {
+  const dispatch = useDispatch();
+
+  const refreshList = () => {
+    dispatch(CHANGE_REFRESH_LIST_FLAG);
+  };
+
+  const setSorting = () => {
+    dispatch(CHANGE_IS_SORTING);
+  };
+
+  const showModalNewTaskWindow = () => {
+    dispatch(NEW_TASK_MODAL_FLAG);
+  };
+
+  let findingTask = "";
 
   return (
     <div className={styles.menu}>
@@ -29,7 +41,7 @@ export const Buttons = ({
           placeholder="Find task..."
           className={styles.search_input}
           value={findingTask}
-          onChange={({ target }) => setFindingTask(target.value)}
+          onChange={({ target }) => dispatch(setFindingTask(target.value))}
         ></input>
       </form>
     </div>

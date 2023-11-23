@@ -1,9 +1,20 @@
 import { Link } from "react-router-dom";
 import styles from "./RemModal.module.css";
 import { useRequestRemoveTask } from "../../../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { selectRemModal } from "../../../store/selectors";
+import { REM_MODAL } from "../../../store/actions.js/show-rem-modal";
 
-export const RemModal = ({ remModal, showRemModal, id }) => {
+export const RemModal = ({ id }) => {
   const { requestRemoveTask } = useRequestRemoveTask(id);
+
+  const dispatch = useDispatch();
+
+  const remModal = useSelector(selectRemModal);
+
+  const showRemModal = () => {
+    dispatch(REM_MODAL);
+  };
 
   return (
     <div className={remModal ? styles.modal_show : styles.modal_none}>

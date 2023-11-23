@@ -1,22 +1,21 @@
-import { useContext, useState } from "react";
 import styles from "./TaskPage.module.css";
 import { useParams } from "react-router-dom";
 import { EditModal } from "./EditModal/EditModal";
 import { RemModal } from "./RemModal/RemModal";
-import { LoadingContext } from "../../context";
 import { TaskNotFund } from "./TaskNotFound";
 import { useRequestGetTasksList } from "../../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { EDIT_MODAL } from "../../store/actions.js/show-edit-modal";
+import { REM_MODAL } from "../../store/actions.js/show-rem-modal";
+import { selectIsLoading } from "../../store/selectors";
 
 export const TaskPage = () => {
-  const [modal, setModal] = useState(false);
-  const [remModal, setRemModal] = useState(false);
-  const { isLoading } = useContext(LoadingContext);
+  const isLoading = useSelector(selectIsLoading);
+
+  const dispatch = useDispatch();
 
   const params = useParams();
   const id = params.id;
-
-  const showModal = () => setModal(!modal);
-  const showRemModal = () => setRemModal(!remModal);
 
   const { tasks } = useRequestGetTasksList();
 
@@ -28,6 +27,13 @@ export const TaskPage = () => {
 
   const { text } = task;
 
+  const showEditModal = () => {
+    dispatch(EDIT_MODAL);
+  };
+  const showRemModal = () => {
+    dispatch(REM_MODAL);
+  };
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -36,15 +42,15 @@ export const TaskPage = () => {
         ) : (
           <>
             <div className={styles.task_title}>
-              <button onClick={showModal}>Edit</button>
+              <button onClick={showEditModal}>Edit</button>
               <button onClick={showRemModal}>Delete</button>
             </div>
             <p>{text}</p>
           </>
         )}
       </div>
-      <EditModal modal={modal} showModal={showModal} id={id} text={text} />
-      <RemModal remModal={remModal} showRemModal={showRemModal} id={id} />
+      <EditModal text={text} />
+      <RemModal id={id} />
     </>
   );
 };

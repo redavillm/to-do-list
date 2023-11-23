@@ -1,35 +1,44 @@
 import styles from "./EditModal.module.css";
-import { useState } from "react";
-import { useRequestUpdateTask } from "../../../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { setEditTask } from "../../../store/actions.js/set-edit-task";
+import { EDIT_MODAL } from "../../../store/actions.js/show-edit-modal";
+import { selectEditModal } from "../../../store/selectors";
 
-export const EditModal = ({ modal, showModal, id, text }) => {
-  const [editTask, setEditTask] = useState("");
+export const EditModal = ({ text }) => {
+  const editModal = useSelector(selectEditModal);
+  const dispatch = useDispatch();
 
-  const { requestUpdateTask } = useRequestUpdateTask({
-    id,
-    editTask,
-  });
+  let editedText = "";
+
+  const editTask = (value) => {
+    dispatch(setEditTask(value));
+  };
+
+  const changeEditModalFlag = () => {
+    dispatch(EDIT_MODAL);
+  };
+
   return (
-    <div className={modal ? styles.modal_show : styles.modal_none}>
+    <div className={editModal ? styles.modal_show : styles.modal_none}>
       <div className={styles.modal_box}>
         <div className={styles.modal_btn_wrapper}>
-          <button onClick={showModal}>X</button>
+          <button onClick={changeEditModalFlag}>X</button>
         </div>
         <div className={styles.modal_title}>Describe your new task</div>
-        <form onSubmit={() => requestUpdateTask({ id, editTask })}>
+        <form onSubmit={() => editTask(editedText)}>
           <textarea
             rows="10"
             cols="33"
             className={styles.modal_input}
-            value={editTask}
-            onChange={({ target }) => setEditTask(target.value)}
+            value={editedText}
+            onChange={({ target }) => (editedText = target.value)}
           >
             {text}
           </textarea>
           <button
             className={styles.modal_btn}
             type="submit"
-            disabled={!editTask}
+            disabled={!editedText}
           >
             Edit task
           </button>
