@@ -5,7 +5,7 @@ import { useSortTasksList } from "../../../hooks/use-sort-tasks-list";
 import { useSelector } from "react-redux";
 
 export const TaskList = () => {
-  const isSorting = useSelector(sele);
+  const isSorting = useSelector(select);
 
   const list = useCreateTasksList();
   const sortedList = useSortTasksList({ isSorting });
