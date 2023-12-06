@@ -1,8 +1,9 @@
+import { useSelector } from "react-redux";
 import { Task } from "../components/Task/Task";
-import { useRequestGetTasksList } from "./use-requst-get-task-list";
+import { selectTasks } from "../store/selectors";
 
-export const useSortTasksList = ({ isSorting }) => {
-  const { tasks } = useRequestGetTasksList();
+export const useSortTasksList = () => {
+  const tasks = useSelector(selectTasks);
   if (!tasks) {
     return false;
   }
@@ -14,7 +15,7 @@ export const useSortTasksList = ({ isSorting }) => {
     })
     .map(({ id, text }, index) => (
       <div>
-        <Task id={id} text={text} index={index} isSorting={isSorting} />
+        <Task id={id} text={text} index={index} />
       </div>
     ));
 };

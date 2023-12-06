@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
 import { Task } from "../components/Task/Task";
-import { useRequestGetTasksList } from "./use-requst-get-task-list";
+import { selectFindingTask, selectTasks } from "../store/selectors";
 
-export const useFindTasksList = ({ findingTask, isSorting }) => {
-  const { tasks } = useRequestGetTasksList();
+export const useFindTasksList = () => {
+  const tasks = useSelector(selectTasks);
+  const findingTask = useSelector(selectFindingTask);
   if (!tasks) {
     return false;
   }
@@ -10,7 +12,7 @@ export const useFindTasksList = ({ findingTask, isSorting }) => {
     .filter((task) => task.text.includes(findingTask))
     .map(({ id, text }, index) => (
       <div>
-        <Task id={id} text={text} index={index} isSorting={isSorting} />
+        <Task id={id} text={text} index={index} />
       </div>
     ));
 };

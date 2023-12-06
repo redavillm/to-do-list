@@ -1,10 +1,9 @@
-const initialTasksState = {};
+const initialTasksState = [];
 
 export const tasksReducer = (state = initialTasksState, action) => {
-  const payload = action.payload;
   switch (action.type) {
-    case "GET_TASKS":
-      return payload;
+    case "GET_TASKS_FROM_SERVER":
+      return { ...state, tasks: action.payload };
     default:
       return state;
   }

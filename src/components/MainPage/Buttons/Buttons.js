@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 import styles from "./Buttons.module.css";
 import { CHANGE_REFRESH_LIST_FLAG } from "../../../store/actions.js/change-refresh-flag-list";
 import { CHANGE_IS_SORTING } from "../../../store/actions.js/change-is-sorting";
-import { NEW_TASK_MODAL_FLAG } from "../../../store/selectors/new-task-modal-flag";
-import { setFindingTask } from "../../../store/actions.js/set-finding-task";
+import { setFindingTask } from "../../../store/actions.js/action-creators/set-finding-task";
+import { SHOW_MODAL_NEW_TASK } from "../../../store/actions.js/show-modal-new-task";
 
 export const Buttons = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const Buttons = () => {
   };
 
   const showModalNewTaskWindow = () => {
-    dispatch(NEW_TASK_MODAL_FLAG);
+    dispatch(SHOW_MODAL_NEW_TASK);
   };
 
   let findingTask = "";

@@ -3,21 +3,19 @@ import { useParams } from "react-router-dom";
 import { EditModal } from "./EditModal/EditModal";
 import { RemModal } from "./RemModal/RemModal";
 import { TaskNotFund } from "./TaskNotFound";
-import { useRequestGetTasksList } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { EDIT_MODAL } from "../../store/actions.js/show-edit-modal";
 import { REM_MODAL } from "../../store/actions.js/show-rem-modal";
-import { selectIsLoading } from "../../store/selectors";
+import { selectIsLoading, selectTasks } from "../../store/selectors";
 
 export const TaskPage = () => {
   const isLoading = useSelector(selectIsLoading);
+  const tasks = useSelector(selectTasks);
 
   const dispatch = useDispatch();
 
   const params = useParams();
   const id = params.id;
-
-  const { tasks } = useRequestGetTasksList();
 
   const task = tasks.find((task) => task.id === +id);
 

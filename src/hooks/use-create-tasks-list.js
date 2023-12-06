@@ -1,8 +1,9 @@
+import { useSelector } from "react-redux";
 import { Task } from "../components/Task/Task";
-import { useRequestGetTasksList } from "./use-requst-get-task-list";
+import { selectTasks } from "../store/selectors";
 
 export const useCreateTasksList = () => {
-  const { tasks } = useRequestGetTasksList();
+  const tasks = useSelector(selectTasks);
 
   return tasks.map(({ id, text }, index) => (
     <div>

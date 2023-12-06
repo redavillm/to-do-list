@@ -1,1 +1,2 @@
-export const selectRefreshListFlag = (state) => state.refreshListFlag;
+export const selectRefreshListFlag = (state) =>
+  state.seterState.refreshListFlag;

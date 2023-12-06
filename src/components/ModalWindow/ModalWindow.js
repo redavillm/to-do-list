@@ -1,29 +1,33 @@
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./ModalWindow.module.css";
-import { useRequestAddNewTask } from "../../hooks/use-requset-add-new-task";
-import { useState } from "react";
+import { showModalNewTask } from "../../store/selectors";
+import { SHOW_MODAL_NEW_TASK } from "../../store/actions.js/show-modal-new-task";
 
-export const ModalWindows = ({
-  showModalNewTaskWindow,
-  visibleModalkWindow,
-}) => {
-  const [newTask, setNewTask] = useState("");
-  const { requestAddNewTask } = useRequestAddNewTask(newTask);
+export const ModalWindows = () => {
+  let newTask = "";
+
+  const dispatch = useDispatch();
+
+  const modalNewTask = useSelector(showModalNewTask);
+
+  const changeModal = () => {
+    dispatch(SHOW_MODAL_NEW_TASK);
+  };
 
   return (
     <div
       className={
-        visibleModalkWindow ? styles.modal_new_task_window : styles.modal_none
+        modalNewTask ? styles.modal_new_task_window : styles.modal_none
       }
     >
       <div className={styles.modal_box}>
         <div className={styles.modal_btn_wrapper}>
-          <button onClick={showModalNewTaskWindow}>X</button>
+          <button onClick={changeModal}>X</button>
         </div>
         <div className={styles.modal_title}>Describe your task</div>
         <form
           onSubmit={() => {
-            showModalNewTaskWindow();
-            requestAddNewTask();
+            changeModal();
           }}
         >
           <textarea
@@ -31,7 +35,7 @@ export const ModalWindows = ({
             rows="7"
             cols="33"
             value={newTask}
-            onChange={({ target }) => setNewTask(target.value)}
+            onChange={({ target }) => (newTask = target.value)}
           ></textarea>
           <button
             className={styles.modal_btn}

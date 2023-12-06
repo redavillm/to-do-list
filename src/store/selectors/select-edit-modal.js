@@ -1,1 +1,1 @@
-export const selectEditModal = (state) => state.editModal;
+export const selectEditModal = (state) => state.seterState.editModal;

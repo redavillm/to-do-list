@@ -1,6 +1,6 @@
 import styles from "./EditModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setEditTask } from "../../../store/actions.js/set-edit-task";
+import { setEditTask } from "../../../store/actions.js/action-creators/set-edit-task";
 import { EDIT_MODAL } from "../../../store/actions.js/show-edit-modal";
 import { selectEditModal } from "../../../store/selectors";
 

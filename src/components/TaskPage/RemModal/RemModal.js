@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./RemModal.module.css";
-import { useRequestRemoveTask } from "../../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRemModal } from "../../../store/selectors";
 import { REM_MODAL } from "../../../store/actions.js/show-rem-modal";
 
 export const RemModal = ({ id }) => {
-  const { requestRemoveTask } = useRequestRemoveTask(id);
-
   const dispatch = useDispatch();
 
   const remModal = useSelector(selectRemModal);
@@ -25,12 +22,7 @@ export const RemModal = ({ id }) => {
         <div className={styles.modal_title}>Are you sure?</div>
         <div className={styles.rem_btn}>
           <Link to="/">
-            <button
-              className={styles.modal_btn}
-              onClick={() => {
-                requestRemoveTask(id);
-              }}
-            >
+            <button className={styles.modal_btn} onClick={() => {}}>
               Yes
             </button>
           </Link>

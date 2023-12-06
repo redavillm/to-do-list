@@ -1,1 +1,1 @@
-export const selectRemModal = (state) => state.remModal;
+export const selectRemModal = (state) => state.seterState.remModal;

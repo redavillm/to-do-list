@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import { tasksReducer, seterReducer } from "./reducers";
 import thunk from "redux-thunk";
 
@@ -7,4 +7,9 @@ const reducer = combineReducers({
   seterState: seterReducer,
 });
 
-export const store = createStore(reducer, applyMiddleware(thunk));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export const store = createStore(
+  reducer,
+  composeEnhancers(applyMiddleware(thunk))
+);

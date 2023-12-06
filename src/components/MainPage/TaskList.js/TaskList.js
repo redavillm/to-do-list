@@ -3,13 +3,20 @@ import { useCreateTasksList } from "../../../hooks/use-create-tasks-list";
 import { useFindTasksList } from "../../../hooks/use-find-tasks-list";
 import { useSortTasksList } from "../../../hooks/use-sort-tasks-list";
 import { useSelector } from "react-redux";
+import {
+  selectFindingTask,
+  selectIsLoading,
+  selectIsSorting,
+} from "../../../store/selectors";
 
 export const TaskList = () => {
-  const isSorting = useSelector(select);
+  const isSorting = useSelector(selectIsSorting);
+  const isLoading = useSelector(selectIsLoading);
+  const findingTask = useSelector(selectFindingTask);
 
   const list = useCreateTasksList();
-  const sortedList = useSortTasksList({ isSorting });
-  const findList = useFindTasksList({ findingTask, isSorting });
+  const sortedList = useSortTasksList();
+  const findList = useFindTasksList();
 
   return (
     <div className={styles.list}>

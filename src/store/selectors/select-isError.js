@@ -1,1 +1,1 @@
-export const selectIsError = (state) => state.isError;
+export const selectIsError = (state) => state.seterState.isError;

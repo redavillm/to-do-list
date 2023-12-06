@@ -4,3 +4,6 @@ export * from "./select-refresh-list-flag";
 export * from "./select-tasks";
 export * from "./select-edit-modal";
 export * from "./select-rem-modal";
+export * from "./select-isSorting";
+export * from "./select-findig-task";
+export * from "./select-show-modal-new-task";
