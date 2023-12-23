@@ -1,18 +1,14 @@
 import styles from "./EditModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setEditTask } from "../../../store/actions.js/action-creators/set-edit-task";
 import { EDIT_MODAL } from "../../../store/actions.js/show-edit-modal";
 import { selectEditModal } from "../../../store/selectors";
+import { updateTask } from "../../../store/actions.js/action-creators/update-task";
 
-export const EditModal = ({ text }) => {
+export const EditModal = ({ text, id }) => {
   const editModal = useSelector(selectEditModal);
   const dispatch = useDispatch();
 
-  let editedText = "";
-
-  const editTask = (value) => {
-    dispatch(setEditTask(value));
-  };
+  let editTask = "";
 
   const changeEditModalFlag = () => {
     dispatch(EDIT_MODAL);
@@ -25,21 +21,19 @@ export const EditModal = ({ text }) => {
           <button onClick={changeEditModalFlag}>X</button>
         </div>
         <div className={styles.modal_title}>Describe your new task</div>
-        <form onSubmit={() => editTask(editedText)}>
+        <form
+          onSubmit={() => {
+            dispatch(updateTask({ id, editTask }));
+            changeEditModalFlag();
+          }}
+        >
           <textarea
             rows="10"
             cols="33"
             className={styles.modal_input}
-            value={editedText}
-            onChange={({ target }) => (editedText = target.value)}
-          >
-            {text}
-          </textarea>
-          <button
-            className={styles.modal_btn}
-            type="submit"
-            disabled={!editedText}
-          >
+            onChange={({ target }) => (editTask = target.value)}
+          ></textarea>
+          <button className={styles.modal_btn} type="submit">
             Edit task
           </button>
         </form>

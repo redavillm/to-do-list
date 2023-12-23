@@ -8,7 +8,7 @@ export const useSortTasksList = () => {
     return false;
   }
   return tasks
-    .sort(function (a, b) {
+    .sort((a, b) => {
       let x = a.text ? a.text.toLowerCase() : "";
       let y = b.text ? b.text.toLowerCase() : "";
       return x < y ? -1 : x > y ? 1 : 0;

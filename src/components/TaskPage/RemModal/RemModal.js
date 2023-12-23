@@ -3,6 +3,7 @@ import styles from "./RemModal.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRemModal } from "../../../store/selectors";
 import { REM_MODAL } from "../../../store/actions.js/show-rem-modal";
+import { removeTask } from "../../../store/actions.js/action-creators/remove-task";
 
 export const RemModal = ({ id }) => {
   const dispatch = useDispatch();
@@ -19,12 +20,18 @@ export const RemModal = ({ id }) => {
         <div className={styles.modal_btn_wrapper}>
           <button onClick={showRemModal}>X</button>
         </div>
-        <div className={styles.modal_title}>Are you sure?</div>
+        <div className={styles.modal_title}>
+          Do you really want to delete this task?
+        </div>
         <div className={styles.rem_btn}>
-          <Link to="/">
-            <button className={styles.modal_btn} onClick={() => {}}>
-              Yes
-            </button>
+          <Link
+            to="/"
+            onClick={() => {
+              dispatch(removeTask({ id }));
+              showRemModal();
+            }}
+          >
+            <button className={styles.modal_btn}>Yes</button>
           </Link>
           <button className={styles.modal_btn} onClick={showRemModal}>
             No

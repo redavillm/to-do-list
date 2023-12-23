@@ -9,15 +9,15 @@ import { REM_MODAL } from "../../store/actions.js/show-rem-modal";
 import { selectIsLoading, selectTasks } from "../../store/selectors";
 
 export const TaskPage = () => {
+  const dispatch = useDispatch();
+
   const isLoading = useSelector(selectIsLoading);
   const tasks = useSelector(selectTasks);
-
-  const dispatch = useDispatch();
 
   const params = useParams();
   const id = params.id;
 
-  const task = tasks.find((task) => task.id === +id);
+  const task = tasks?.find((task) => task.id === +id);
 
   if (!task) {
     return <TaskNotFund />;
@@ -47,7 +47,7 @@ export const TaskPage = () => {
           </>
         )}
       </div>
-      <EditModal text={text} />
+      <EditModal text={text} id={id} />
       <RemModal id={id} />
     </>
   );

@@ -21,13 +21,11 @@ function App() {
       <a href="/">
         <h1>Tasks list</h1>
       </a>
-      <div>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/task/:id" element={<TaskPage />} />
-          <Route path="*" element={<NotFund />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/task/:id" element={<TaskPage />} />
+        <Route path="*" element={<NotFund />} />
+      </Routes>
     </div>
   );
 }

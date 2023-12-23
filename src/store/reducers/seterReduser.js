@@ -4,7 +4,7 @@ const initialSeterState = {
   isError: false,
   editModal: false,
   remModal: false,
-  modalNewTask: false,
+  newTaskModal: false,
   isSorting: false,
   findingTask: "",
 };

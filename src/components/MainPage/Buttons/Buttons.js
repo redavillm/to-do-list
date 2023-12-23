@@ -20,7 +20,9 @@ export const Buttons = () => {
     dispatch(SHOW_MODAL_NEW_TASK);
   };
 
-  let findingTask = "";
+  const searchTasks = (val) => {
+    dispatch(setFindingTask(val));
+  };
 
   return (
     <div className={styles.menu}>
@@ -38,10 +40,12 @@ export const Buttons = () => {
       </button>
       <form>
         <input
+          type="text"
           placeholder="Find task..."
           className={styles.search_input}
-          value={findingTask}
-          onChange={({ target }) => dispatch(setFindingTask(target.value))}
+          onChange={({ target }) => {
+            searchTasks(target.value);
+          }}
         ></input>
       </form>
     </div>

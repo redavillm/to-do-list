@@ -1,13 +1,11 @@
-import { CHANGE_REFRESH_LIST_FLAG } from "../change-refresh-flag-list";
+import { CHANGE_LOADING_IS_FALSE } from "../chang-loading-false";
+import { CHANGE_LOADING_IS_TRUE } from "../change-loading-true";
 
-export const removeTask = ({ id }) => {
-  return (dispatch) => {
-    fetch(`http://localhost:3005/tasks/${id}`, {
+export const removeTask =
+  ({ id }) =>
+  (dispatch) => {
+    dispatch(CHANGE_LOADING_IS_TRUE);
+    return fetch(`http://localhost:3005/tasks/${id}`, {
       method: "DELETE",
-    })
-      .then((rawResponse) => rawResponse.json())
-      .then(() => {
-        dispatch(CHANGE_REFRESH_LIST_FLAG);
-      });
+    }).finally(() => dispatch(CHANGE_LOADING_IS_FALSE));
   };
-};

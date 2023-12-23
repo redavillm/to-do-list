@@ -6,4 +6,4 @@ export * from "./select-edit-modal";
 export * from "./select-rem-modal";
 export * from "./select-isSorting";
 export * from "./select-findig-task";
-export * from "./select-show-modal-new-task";
+export * from "./select-new-task-modal";
